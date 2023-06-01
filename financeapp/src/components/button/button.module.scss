@@ -1,0 +1,57 @@
+@import '../../css/variables/colors.scss';
+@import '../../css/variables/fontSizes.scss';
+
+.primary {
+	background-image: linear-gradient(-180deg, $light-blue 0%, $blue 100%);
+	border-radius: 0.5rem;
+	box-sizing: border-box;
+	color: #ffffff;
+	display: flex;
+	justify-content: center;
+	text-decoration: none;
+	width: 3rem;
+	border: 0;
+	cursor: pointer;
+	padding: 0.7rem 2rem;
+
+	&:hover,
+	&:focus {
+		background-image: linear-gradient(-180deg, $blue 0%, $dark-blue 100%);
+		border: 2px solid $light-blue;
+	}
+}
+
+.secondary {
+	background-image: linear-gradient(-180deg, $light-green 0%, $green 100%);
+	border-radius: 0.5rem;
+	box-sizing: border-box;
+	color: $white;
+	display: flex;
+	justify-content: center;
+	text-decoration: none;
+	width: 1rem;
+	border: 0;
+	cursor: pointer;
+	padding: 0.7rem 2rem;
+
+	&:hover,
+	&:focus {
+		background-image: linear-gradient(-180deg, $green 0%, $dark-green 100%);
+		border: 2px solid $light-green;
+	}
+}
+
+.sm {
+	min-height: $size-sm;
+	font-size: $size-sm;
+}
+
+.md {
+	min-height: $size-md;
+	font-size: $size-md;
+}
+
+.lg {
+	min-height: $size-lg;
+	font-size: $size-lg;
+}

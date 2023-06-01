@@ -1,0 +1,12 @@
+@import '../../css/variables/fontSizes.scss';
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+
+	.label {
+		font-size: $size-sm;
+		font-weight: $text;
+	}
+}

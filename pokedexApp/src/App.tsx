@@ -1,11 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Layout } from './components/layout/layout/Layout';
 import { Home } from './components/home/Home';
-import { Pokemon } from './types/Pokemon';
-import { fetchPokemonList } from './api/fetchPokemonList';
-import { fetchPokemon } from './api/fetchPokemon';
 import useGetPokemon from './customHooks/useGetPokemon';
 
 function App() {

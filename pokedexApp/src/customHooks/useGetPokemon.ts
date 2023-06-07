@@ -12,7 +12,7 @@ function useGetPokemon(id: number) {
 			setRandomPokemon(pokemon.data);
 			setIsLoading(false);
 		})();
-	}, [id]);
+	}, []);
 
 	return { randomPokemon, isLoading };
 }

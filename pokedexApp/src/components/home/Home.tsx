@@ -20,16 +20,16 @@ export const Home = ({ pokemon }: HomeProps) => {
 	const renderPokemon = () => {
 		let pokemonVar;
 
-		console.log(pokemon);
-
 		if (pokemon !== null) {
 			const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemon.id}.png`;
 
 			pokemonVar = (
 				<div className={styles.home__card}>
 					<div className={styles.card__pokemon}>
-						<div>{formatPokemonId(pokemon.id)}</div>
-						<div className={styles.pokemon_name}>{pokemon.name}</div>
+						<div className={styles.pokemon__number}>
+							{formatPokemonId(pokemon.id)}
+						</div>
+						<div className={styles.pokemon__name}>{pokemon.name}</div>
 
 						<div className={styles.card__badge}>
 							{pokemon.types.map(({ type }) => (
@@ -42,11 +42,11 @@ export const Home = ({ pokemon }: HomeProps) => {
 						</div>
 						<div className={styles.pokemon__characteristics}>
 							<div className={styles.characteristic}>
-								<div>{pokemon.height} m</div>
+								<div className={styles.value}>{pokemon.height} m</div>
 								<div>Altura</div>
 							</div>
 							<div className={styles.characteristic}>
-								<div>{pokemon.weight} Kg</div>
+								<div className={styles.value}>{pokemon.weight} Kg</div>
 								<div>Peso</div>
 							</div>
 						</div>
@@ -63,15 +63,18 @@ export const Home = ({ pokemon }: HomeProps) => {
 		const colorValue: PokemonType = pokemonTypes.filter(
 			(type) => pokemon && pokemon.types[0].type.name.indexOf(type.name) !== -1
 		)[0];
-		setColor(colorValue.color);
+		setColor((prevColor) => {
+			return prevColor !== colorValue.color ? colorValue.color : '';
+		});
 	}, [pokemonId]);
-
-	console.log(color);
 
 	return (
 		<div className={styles.home}>
 			<Card size='lg' backgroundColor={color}>
-				{renderPokemon()}
+				<>
+					<h2 className={styles.card__title}>Your today's random Pokemon is...</h2>
+					{renderPokemon()}
+				</>
 			</Card>
 		</div>
 	);

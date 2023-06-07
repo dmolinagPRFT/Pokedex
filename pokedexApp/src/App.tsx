@@ -6,24 +6,15 @@ import { Home } from './components/home/Home';
 import { Pokemon } from './types/Pokemon';
 import { fetchPokemonList } from './api/fetchPokemonList';
 import { fetchPokemon } from './api/fetchPokemon';
+import useGetPokemon from './customHooks/useGetPokemon';
 
 function App() {
-	const [loading, setLoading] = useState(true);
-	const [randomPokemon, setRandomPokemon] = useState<Pokemon | null>(null);
-
-	useEffect(() => {
-		(async () => {
-			setLoading(true);
-			const randomNumber: number = Math.floor(Math.random() * 1000);
-			const pokemon = await fetchPokemon(randomNumber);
-			setRandomPokemon(pokemon.data);
-			setLoading(false);
-		})();
-	}, []);
+	const randomNumber: number = Math.floor(Math.random() * 1000);
+	const { randomPokemon, isLoading } = useGetPokemon(randomNumber);
 
 	return (
 		<div className='App'>
-			<Layout>{!loading && <Home pokemon={randomPokemon} />}</Layout>
+			<Layout>{!isLoading && <Home pokemon={randomPokemon} />}</Layout>
 		</div>
 	);
 }

@@ -1,0 +1,18 @@
+@import '../../../css/variables/colors.scss';
+
+.card {
+	border: 1px solid $white;
+	border-radius: 10px;
+}
+
+.sm {
+	width: 20%;
+}
+
+.md {
+	width: 40%;
+}
+
+.lg {
+	width: 80%;
+}

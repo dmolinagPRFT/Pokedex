@@ -1,0 +1,66 @@
+.home {
+	display: flex;
+	justify-content: center;
+}
+
+.home__card {
+	margin: 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+
+
+}
+
+.card__badge {
+	display: flex;
+	flex-direction: row;
+	gap: 0.5rem;
+}
+
+.card__pokemon {
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+
+}
+
+.pokemon_name {
+  text-transform: capitalize;
+}
+
+.card__image {
+	width: 50%;
+	height: 50%;
+}
+
+.pokemon__characteristics {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3rem;
+
+  .characteristic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 600px) {
+	.home__card {
+		flex-direction: row;
+	}
+
+	.card__pokemonName {
+		width: 70%;
+	}
+
+	.card__image {
+		width: 30%;
+		height: 30%;
+	}
+}

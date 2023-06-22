@@ -1,12 +1,12 @@
-import styles from './Footer.module.scss';
+import styles from './footer.module.scss';
 
 export const Footer = () => {
 	const renderYear = new Date().getFullYear();
 	return (
 		<footer className={styles.footer}>
-			<span>Derechos de imagem para Nintendo & The Pokémon Company</span>
+			<span>Derechos de imagen para Nintendo & The Pokemon Company</span>
 			<span>Datos obtenidos de API - pokeapi.co</span>
-			<span>&copy; {renderYear}</span>
+			<span>Pokemon Company &copy; {renderYear}</span>
 		</footer>
 	);
 };

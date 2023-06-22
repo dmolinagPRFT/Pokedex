@@ -1,0 +1,32 @@
+@import '../../css/variables/colors.scss';
+@import '../../css/variables/fontSizes.scss';
+
+.searchBar {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	margin: 3rem 5rem;
+	align-items: end;
+	gap: 50%;
+
+	&__searchByType {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		&__title {
+			color: $white;
+			font-size: $size-lg;
+			font-weight: $text;
+			margin-bottom: 1rem;
+		}
+
+		&__pokemonTypes {
+			display: flex;
+			flex-direction: row;
+			gap: 8px;
+			max-width: 23rem;
+			overflow-x: scroll;
+			padding: .5rem;
+		}
+	}
+}

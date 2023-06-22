@@ -6,6 +6,8 @@ import dark from '../../assets/pokemonTypes/dark.svg';
 import dragon from '../../assets/pokemonTypes/dragon.svg';
 import electric from '../../assets/pokemonTypes/electric.svg';
 import fairy from '../../assets/pokemonTypes/fairy.svg';
+import fighting from '../../assets/pokemonTypes/fighting.svg';
+import fire from '../../assets/pokemonTypes/fire.svg';
 import flying from '../../assets/pokemonTypes/flying.svg';
 import ghost from '../../assets/pokemonTypes/ghost.svg';
 import grass from '../../assets/pokemonTypes/grass.svg';
@@ -17,11 +19,13 @@ import psychic from '../../assets/pokemonTypes/psychic.svg';
 import rock from '../../assets/pokemonTypes/rock.svg';
 import steel from '../../assets/pokemonTypes/steel.svg';
 import water from '../../assets/pokemonTypes/water.svg';
+import Button from '../generalComponents/button/Button';
 
 type PokemonTypeProps = {
 	type: string;
 	tabIndex: boolean;
 	handleClick?: (e: SyntheticEvent) => void;
+	button?: boolean;
 };
 
 export const PokemonTypeBadge = (props: PokemonTypeProps) => {
@@ -29,9 +33,17 @@ export const PokemonTypeBadge = (props: PokemonTypeProps) => {
 		(item) => item.name === props.type
 	);
 
+	if (props.button) {
+		return (
+			<Button buttonStyle='badge' bgColor={color} onClick={props.handleClick} name={name}>
+				<img src={getBadgeImage(name)} alt={name} />
+				{name}
+			</Button>
+		);
+	}
+
 	return (
 		<div
-			onClick={props.handleClick}
 			tabIndex={props.tabIndex ? 0 : -1}
 			style={{ background: color }}
 			className={styles.badge}
@@ -54,6 +66,10 @@ const getBadgeImage = (pokemonType: string) => {
 			return electric;
 		case 'fairy':
 			return fairy;
+		case 'fighting':
+			return fighting;
+		case 'fire':
+			return fire;
 		case 'flying':
 			return flying;
 		case 'ghost':

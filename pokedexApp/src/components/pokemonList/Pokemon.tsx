@@ -1,14 +1,14 @@
-import { PokemonObj } from '../../types/Pokemon';
+import styles from './pokemon.module.scss';
 import { Card } from '../generalComponents/card/Card';
-import styles from './home.module.scss';
-import { PokemonTypeBadge } from '../pokemonBadgeType/PokemonType';
+import { PokemonObj } from '../../types/Pokemon';
 import { formatPokemonId, getPokemonColor } from '../../utils/pokemonFunctions';
+import { PokemonTypeBadge } from '../pokemonBadgeType/PokemonType';
 
-type HomeProps = {
-	pokemon: PokemonObj | null;
+type PokemonProps = {
+	pokemon: PokemonObj;
 };
 
-export const Home = ({ pokemon }: HomeProps) => {
+export const Pokemon = ({ pokemon }: PokemonProps) => {
 	const renderPokemon = () => {
 		let pokemonVar;
 
@@ -16,8 +16,23 @@ export const Home = ({ pokemon }: HomeProps) => {
 			const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemon.id}.png`;
 
 			pokemonVar = (
-				<div className={styles.home__card}>
-					<div className={styles.home__card__pokemon}>
+				<div
+					className={styles.pokemon__card}
+					// style={{
+					// 	background: `radial-gradient(${
+					// 		getPokemonColor(pokemon).color
+					// 	}, green)`,
+					// }}
+				>
+					<img
+						src={imgUrl}
+						alt={pokemon.name}
+						className={styles.card__image}
+						width={'100%'}
+						height={'100%'}
+					/>
+
+					<div className={styles.pokemon__card__pokemon}>
 						<div className={styles.pokemon__number}>
 							{formatPokemonId(pokemon.id)}
 						</div>
@@ -43,7 +58,6 @@ export const Home = ({ pokemon }: HomeProps) => {
 							</div>
 						</div>
 					</div>
-					<img src={imgUrl} alt={pokemon.name} className={styles.card__image} />
 				</div>
 			);
 		}
@@ -51,15 +65,8 @@ export const Home = ({ pokemon }: HomeProps) => {
 	};
 
 	return (
-		<div className={styles.home}>
-			<Card size='lg' backgroundColor={getPokemonColor(pokemon).color}>
-				<>
-					<h2 className={styles.card__title}>
-						Your today's random Pokemon is...
-					</h2>
-					{renderPokemon()}
-				</>
-			</Card>
-		</div>
+		<Card size='md' backgroundColor={getPokemonColor(pokemon).color}>
+			{renderPokemon()}
+		</Card>
 	);
 };

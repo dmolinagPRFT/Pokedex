@@ -2,7 +2,7 @@ import React from 'react';
 import { useButton } from 'react-aria';
 import styles from './Button.module.scss';
 
-type ButtonStyle = 'primary' | 'secondary';
+type ButtonStyle = 'primary' | 'secondary' | 'badge';
 type ButtonSize = 'sm' | 'md' | 'lg';
 
 type Props = {
@@ -13,12 +13,16 @@ type Props = {
 	role?: React.AriaRole;
 	disabled?: boolean;
 	tabIndex?: number;
+	bgColor?: string;
+	name?: string;
+	textColor?: string;
 };
 
 const Button = ({
 	buttonStyle = 'primary',
 	size = 'md',
 	disabled = false,
+	textColor,
 	...props
 }: Props) => {
 	let ref = React.useRef(null);
@@ -29,10 +33,12 @@ const Button = ({
 	return (
 		<button
 			onClick={props.onClick}
+			name={props.name}
 			className={className}
 			disabled={disabled}
 			role={props.role}
 			tabIndex={props.tabIndex}
+			style={{ background: props.bgColor, color: textColor && textColor }}
 			{...buttonProps}
 			ref={ref}
 		>
@@ -62,6 +68,9 @@ function getStyleClass(buttonStyle?: ButtonStyle | null): string {
 
 		case 'secondary':
 			return styles.secondary;
+
+		case 'badge':
+			return styles.badge;
 
 		default:
 			return styles.primary;

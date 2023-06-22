@@ -1,0 +1,40 @@
+@import './css/variables/colors.scss';
+
+.App {
+	background-color: $light-black;
+	width: 100%;
+  height: 100%;
+	display: flex;
+	flex-direction: column;
+
+	&__main {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+.pokemonList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 2rem 3rem;
+  justify-content: center;
+}
+
+@media screen and (min-width: 600px) {
+	.App {
+    background-color: $light-black;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  
+    &__main {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

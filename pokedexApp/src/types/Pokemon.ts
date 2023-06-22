@@ -1,4 +1,4 @@
-export type Pokemon = {
+export type PokemonObj = {
   id: number;
   name: string;
   types: [{ type: { name: string } }];

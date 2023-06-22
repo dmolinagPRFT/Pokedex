@@ -1,0 +1,10 @@
+@import '../../../css/variables/colors.scss';
+@import '../../../css/variables/fontSizes.scss';
+
+.title {
+  color: $white;
+  font-size: $size-lg;
+  font-weight: $text;
+  margin-bottom: 1rem;
+
+}

@@ -5,7 +5,7 @@ import styles from './input.module.scss';
 
 type Props = {
 	onChange?: (e: any) => void;
-	label: React.ReactNode;
+	label?: React.ReactNode;
 	isRequired?: boolean;
 	disabled?: boolean;
 	tabIndex?: number;
@@ -14,10 +14,12 @@ type Props = {
 const InputComp = ({ disabled = false, ...props }: Props) => {
 	return (
 		<TextField isRequired={props.isRequired} className={styles.container}>
-			<Label className={styles.label}>
-				{props.label}:
-				{props.isRequired && '*'}
-			</Label>
+			{props.label && (
+				<Label className={styles.label}>
+					{props.label}:{props.isRequired && '*'}
+				</Label>
+			)}
+
 			<Input />
 		</TextField>
 	);

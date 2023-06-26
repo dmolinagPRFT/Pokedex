@@ -1,4 +1,3 @@
-import { SyntheticEvent } from 'react';
 import { pokemonTypes } from '../../pokemonTypes';
 import styles from './pokemonTypeBadge.module.scss';
 import bug from '../../assets/pokemonTypes/bug.svg';
@@ -19,23 +18,31 @@ import psychic from '../../assets/pokemonTypes/psychic.svg';
 import rock from '../../assets/pokemonTypes/rock.svg';
 import steel from '../../assets/pokemonTypes/steel.svg';
 import water from '../../assets/pokemonTypes/water.svg';
-import Button from '../generalComponents/button/Button';
+import { Button } from '../';
 
 type PokemonTypeProps = {
 	type: string;
 	tabIndex: boolean;
-	handleClick?: (e: SyntheticEvent) => void;
+	handleClick?: (e: string) => void;
 	button?: boolean;
 };
 
-export const PokemonTypeBadge = (props: PokemonTypeProps) => {
-	const [{ name, color }] = pokemonTypes.filter(
-		(item) => item.name === props.type
-	);
+export const PokemonBadgeType = ({
+	type,
+	tabIndex,
+	handleClick,
+	button,
+}: PokemonTypeProps) => {
+	const [{ name, color }] = pokemonTypes.filter((item) => item.name === type);
 
-	if (props.button) {
+	if (button && handleClick) {
 		return (
-			<Button buttonStyle='badge' bgColor={color} onClick={props.handleClick} name={name}>
+			<Button
+				buttonStyle='badge'
+				bgColor={color}
+				onClick={(e) => handleClick(e.currentTarget.name)}
+				name={name}
+			>
 				<img src={getBadgeImage(name)} alt={name} />
 				{name}
 			</Button>
@@ -44,7 +51,7 @@ export const PokemonTypeBadge = (props: PokemonTypeProps) => {
 
 	return (
 		<div
-			tabIndex={props.tabIndex ? 0 : -1}
+			tabIndex={tabIndex ? 0 : -1}
 			style={{ background: color }}
 			className={styles.badge}
 		>

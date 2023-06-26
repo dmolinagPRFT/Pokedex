@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { useButton } from 'react-aria';
-import styles from './Button.module.scss';
+import styles from './button.module.scss';
 
 type ButtonStyle = 'primary' | 'secondary' | 'badge';
 type ButtonSize = 'sm' | 'md' | 'lg';
 
 type Props = {
-	onClick?: (e: any) => void;
+	onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 	children: React.ReactNode;
 	size?: ButtonSize;
 	buttonStyle?: ButtonStyle;
@@ -18,7 +18,7 @@ type Props = {
 	textColor?: string;
 };
 
-const Button = ({
+export const Button = ({
 	buttonStyle = 'primary',
 	size = 'md',
 	disabled = false,
@@ -48,8 +48,6 @@ const Button = ({
 };
 
 Button.displayName = 'Button';
-
-export default Button;
 
 function getSizeClass(size?: ButtonSize | null): string {
 	switch (size) {

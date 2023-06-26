@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { fetchPokemon } from '../api/fetchPokemon';
 import { PokemonObj } from '../types/Pokemon';
+import { useToastContext } from '../utils';
 
-const INITIAL_POKEMON: PokemonObj = {
+export const INITIAL_POKEMON: PokemonObj = {
 	id: 0,
 	name: 'Pokemon',
 	types: [{ type: { name: 'bug' } }],
@@ -11,21 +12,33 @@ const INITIAL_POKEMON: PokemonObj = {
 	stats: [{ base_stat: 1, stat: { name: 'test' } }],
 };
 
-function useGetPokemon(id: number) {
+export function useGetPokemon(id: number) {
+	const { showToast } = useToastContext();
+
 	const [isLoading, setIsLoading] = useState<boolean>(true);
-	const [randomPokemon, setRandomPokemon] = useState<PokemonObj | null>(
-		INITIAL_POKEMON
-	);
+	const [randomPokemon, setRandomPokemon] =
+		useState<PokemonObj>(INITIAL_POKEMON);
 
 	useEffect(() => {
 		(async () => {
-			const pokemon = await fetchPokemon(id);
-			setRandomPokemon(pokemon.data);
-			setIsLoading(false);
+			let pokemon;
+			pokemon = await fetchPokemon(id);
+
+			if (!pokemon.error) {
+				setRandomPokemon(pokemon.data);
+				setIsLoading(false);
+			} else {
+				pokemon = INITIAL_POKEMON;
+				setRandomPokemon(pokemon);
+				setIsLoading(false);
+				showToast({
+					isDisplay: true,
+					message: 'Error retrieving Pokemon',
+					type: 'error',
+				});
+			}
 		})();
 	}, []);
 
 	return { randomPokemon, isLoading };
 }
-
-export default useGetPokemon;

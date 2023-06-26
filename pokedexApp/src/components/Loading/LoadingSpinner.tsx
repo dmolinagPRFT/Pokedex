@@ -6,10 +6,7 @@ type loadingSpinnerProps = {
 	children: React.ReactNode;
 };
 
-export default function LoadingSpinner({
-	isLoading,
-	children,
-}: loadingSpinnerProps) {
+export const LoadingSpinner = ({ isLoading, children }: loadingSpinnerProps) => {
 	return (
 		<div className={styles.loadingSpinner}>
 			{isLoading && (
@@ -23,4 +20,4 @@ export default function LoadingSpinner({
 			{children}
 		</div>
 	);
-}
+};

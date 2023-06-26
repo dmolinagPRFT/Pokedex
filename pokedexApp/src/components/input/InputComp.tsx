@@ -11,7 +11,7 @@ type Props = {
 	tabIndex?: number;
 };
 
-const InputComp = ({ disabled = false, ...props }: Props) => {
+export const InputComp = ({ disabled = false, ...props }: Props) => {
 	return (
 		<TextField isRequired={props.isRequired} className={styles.container}>
 			{props.label && (
@@ -24,5 +24,3 @@ const InputComp = ({ disabled = false, ...props }: Props) => {
 		</TextField>
 	);
 };
-
-export default InputComp;

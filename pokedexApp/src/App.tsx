@@ -1,48 +1,29 @@
 import './App.scss';
-import { Layout } from './components/layout/layout/Layout';
-import { Home } from './components/home/Home';
-import useGetPokemon from './customHooks/useGetPokemon';
-import LoadingSpinner from './components/Loading/LoadingSpinner';
-import React, { useEffect } from 'react';
-import useListPokemons from './customHooks/useListPokemons';
-import { PokemonObj } from './types/Pokemon';
-import { Pokemon } from './components/pokemonList/Pokemon';
-import { SearchBar } from './components/SearchBar/SearchBar';
+import { Home, PokemonList } from './containers';
+import React from 'react';
+import { useListPokemon, useGetPokemon } from './customHooks';
+import { SearchBar, LoadingSpinner, Layout, Toast } from './components';
+import 'react-toastify/dist/ReactToastify.css';
 
-const MAX_POKEMONS = 150;
+const MAX_POKEMON = 150;
 
 function App() {
 	const [page] = React.useState<number>(1);
 
-	const randomNumber: number = Math.floor(Math.random() * MAX_POKEMONS);
+	const randomNumber: number = Math.floor(Math.random() * MAX_POKEMON);
 	const { randomPokemon, isLoading } = useGetPokemon(randomNumber);
-	const { pokemonList, isLoading: loadingList } = useListPokemons(page);
-
-	const [pokemons, setPokemons] = React.useState<PokemonObj[]>([]);
-
-	let arrayLength = pokemonList.length;
-
-	useEffect(() => {
-		setPokemons(pokemonList);
-	}, [arrayLength]);
-
-	const handleSearchPokemon = (filteredPokemons: PokemonObj[]) => {
-		setPokemons(filteredPokemons);
-	};
+	const { isLoading: loadingList } = useListPokemon(page);
 
 	return (
 		<div className='App'>
 			<LoadingSpinner isLoading={isLoading || loadingList}>
+				<Toast />
 				<Layout>
-					<div className='App__main'>
+					<main className='App__main'>
 						<Home pokemon={randomPokemon} />
-						<SearchBar onSetPokemons={handleSearchPokemon} />
-						<div className='pokemonList'>
-							{pokemons.map((pokemon: PokemonObj) => {
-								return <Pokemon pokemon={pokemon} />;
-							})}
-						</div>
-					</div>
+						<SearchBar />
+						<PokemonList />
+					</main>
 				</Layout>
 			</LoadingSpinner>
 		</div>

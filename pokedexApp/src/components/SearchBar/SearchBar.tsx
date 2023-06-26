@@ -2,24 +2,21 @@ import React from 'react';
 import { fetchPokemonByType } from '../../api/fetchPokemonByType';
 import { pokemonTypes } from '../../pokemonTypes';
 import { PokemonObj } from '../../types/Pokemon';
-import InputComp from '../generalComponents/input/InputComp';
-import { PokemonTypeBadge } from '../pokemonBadgeType/PokemonType';
+import { InputComp, Button } from '../';
+import { PokemonBadgeType } from '../pokemonBadgeType/PokemonBadgeType';
 import styles from './searchBar.module.scss';
-import Button from '../generalComponents/button/Button';
+import { usePokemonsListContext } from '../../utils/pokemonsListContext';
 
-type SearchBarProps = {
-	onSetPokemons: (pokemons: PokemonObj[]) => void;
-};
-
-export const SearchBar = ({ onSetPokemons }: SearchBarProps) => {
+export const SearchBar = () => {
 	const [selectedType, setSelectedType] = React.useState<string>('');
 
-	const onSearchByType = async (event: any) => {
-		const typeName = event.target.name;
+	const { definePokemonList } = usePokemonsListContext();
+
+	const onSearchByType = async (typeName: any) => {
 		setSelectedType(typeName);
-		if (typeName !== selectedType) {
-			const pokemonList: PokemonObj[] = await fetchPokemonByType(typeName);
-			onSetPokemons(pokemonList);
+		if (typeName && typeName !== selectedType) {
+			const { pokemonList, error } = await fetchPokemonByType(typeName);
+			definePokemonList(pokemonList);
 		}
 	};
 
@@ -33,7 +30,7 @@ export const SearchBar = ({ onSetPokemons }: SearchBarProps) => {
 				<div className={styles.searchBar__searchByType__pokemonTypes}>
 					{pokemonTypes.map((type) => {
 						return (
-							<PokemonTypeBadge
+							<PokemonBadgeType
 								key={type.name}
 								type={type.name}
 								tabIndex={false}
@@ -46,17 +43,17 @@ export const SearchBar = ({ onSetPokemons }: SearchBarProps) => {
 						buttonStyle='badge'
 						bgColor={'white'}
 						onClick={onSearchByType}
-            textColor='black'
-            name=''
+						textColor='black'
+						name=''
 					>
 						Clear
 					</Button>
 				</div>
 			</div>
 
-			<div>
+			{/* <div>
 				<InputComp />
-			</div>
+			</div> */}
 		</div>
 	);
 };

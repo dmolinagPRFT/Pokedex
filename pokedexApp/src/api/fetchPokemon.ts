@@ -1,20 +1,20 @@
+import { INITIAL_POKEMON } from '../customHooks/useGetPokemon';
 import { PokemonObj } from '../types/Pokemon';
 
 export const fetchPokemon = async (pokemon: string | number) => {
 	const URL = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
 
-	let response;
-	let data: PokemonObj | null;
+	let data: PokemonObj;
 	let error;
 
 	try {
-		response = await fetch(URL);
+		const response = await fetch(URL);
 		data = await response.json();
 		error = false;
 	} catch {
-		data = null;
+		data = INITIAL_POKEMON;
 		error = true;
 	}
 
-	return { response, data, error };
+	return { data, error };
 };

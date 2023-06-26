@@ -1,20 +1,30 @@
-import { fetchPokemon } from "./fetchPokemon";
+import { fetchPokemon } from './fetchPokemon';
 
 type Props = {
-  pokemon: { name: string };
+	pokemon: { name: string };
 };
 
 export const fetchPokemonByType = async (type: string, pokemonAmount = 9) => {
-  const URL = `https://pokeapi.co/api/v2/type/${type}`;
+	const URL = `https://pokeapi.co/api/v2/type/${type}`;
+	try {
+		const response = await fetch(URL);
+		const data = await response.json();
 
-  const response = await fetch(URL);
-  const data = await response.json();
+		const promises = data.pokemon
+			.filter(
+				(item: Props, index: number) => index + 1 <= pokemonAmount && item
+			)
+			.map(async (item: Props) => (await fetchPokemon(item.pokemon.name)).data);
 
-  const promises = data.pokemon
-    .filter((item: Props, index: number) => index + 1 <= pokemonAmount && item)
-    .map(async (item: Props) => (await fetchPokemon(item.pokemon.name)).data);
+		const pokemonList = Promise.all(promises);
 
-  const pokemonList = Promise.all(promises);
-
-  return pokemonList;
+		return pokemonList.then((pokemons) => {
+			return { pokemonList: pokemons, error: false };
+		});
+	} catch {
+		return {
+			pokemonList: [],
+			error: true,
+		};
+	}
 };

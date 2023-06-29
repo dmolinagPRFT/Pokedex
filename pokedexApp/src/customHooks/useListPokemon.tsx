@@ -2,21 +2,43 @@ import { useEffect, useState } from 'react';
 import { fetchPokemonList } from '../api/fetchPokemonList';
 import { usePokemonsListContext, useToastContext } from '../utils';
 
-export function useListPokemon(page: number) {
-	const { definePokemonList } = usePokemonsListContext();
+export function useListPokemon() {
+	const { pokemonList, definePokemonList } = usePokemonsListContext();
 	const { showToast } = useToastContext();
 
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 
+	const queryPokemons = async (page: number) => {
+		setIsLoading(true);
+		const response = await fetchPokemonList(page + 1);
+
+		if (!response.error) {
+			let newPokemonList = [...pokemonList.concat(response.pokemonList)];
+			if (page === 1) {
+				newPokemonList = response.pokemonList;
+			}
+			definePokemonList(newPokemonList, '');
+			setIsLoading(false);
+		} else {
+			definePokemonList([], '');
+			setIsLoading(false);
+			showToast({
+				isDisplay: true,
+				message: "Error retrieving Pokemon's list1",
+				type: 'error',
+			});
+		}
+	};
+
 	useEffect(() => {
 		(async () => {
-			const pokemonList = await fetchPokemonList(page);
+			const response = await fetchPokemonList(1);
 
-			if (!pokemonList.error) {
-				definePokemonList(pokemonList.pokemonList);
+			if (!response.error) {
+				definePokemonList(response.pokemonList, '');
 				setIsLoading(false);
 			} else {
-				definePokemonList([]);
+				definePokemonList([], '');
 				setIsLoading(false);
 				showToast({
 					isDisplay: true,
@@ -27,5 +49,5 @@ export function useListPokemon(page: number) {
 		})();
 	}, []);
 
-	return { isLoading };
+	return { isLoading, queryPokemons };
 }

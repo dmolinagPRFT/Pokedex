@@ -9,7 +9,6 @@
 	display: flex;
 	justify-content: center;
 	text-decoration: none;
-	width: 3rem;
 	border: 0;
 	cursor: pointer;
 	padding: 0.7rem 2rem;
@@ -29,7 +28,6 @@
 	display: flex;
 	justify-content: center;
 	text-decoration: none;
-	width: 1rem;
 	border: 0;
 	cursor: pointer;
 	padding: 0.7rem 2rem;
@@ -53,9 +51,9 @@
 	cursor: pointer;
 	padding: 0.7rem 2rem;
 
-  display: flex;
-  align-items: center;
-  gap: 5px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
 
 	&:hover,
 	&:focus {

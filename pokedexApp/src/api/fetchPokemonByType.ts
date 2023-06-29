@@ -24,7 +24,7 @@ export const fetchPokemonByType = async (type: string, pokemonAmount = 9) => {
 	} catch {
 		return {
 			pokemonList: [],
-			error: true,
+			error: false,
 		};
 	}
 };

@@ -53,6 +53,8 @@ function getSizeClass(size?: ButtonSize | null): string {
 	switch (size) {
 		case 'md':
 			return styles.md;
+		case 'lg':
+			return styles.lg;
 
 		default:
 			return styles.md;

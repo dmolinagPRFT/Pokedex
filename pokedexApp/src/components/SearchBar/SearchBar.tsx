@@ -1,22 +1,27 @@
 import React from 'react';
-import { fetchPokemonByType } from '../../api/fetchPokemonByType';
 import { pokemonTypes } from '../../pokemonTypes';
-import { PokemonObj } from '../../types/Pokemon';
-import { InputComp, Button } from '../';
+import { Button } from '../';
 import { PokemonBadgeType } from '../pokemonBadgeType/PokemonBadgeType';
 import styles from './searchBar.module.scss';
-import { usePokemonsListContext } from '../../utils/pokemonsListContext';
+import { useListPokemon, useListPokemonByType } from '../../customHooks';
+import { POKEMONS_PER_PAGE } from '../../utils/constants';
 
-export const SearchBar = () => {
+interface SearchBarProp {
+	setPage: (page: number) => void;
+}
+
+export const SearchBar = ({ setPage }: SearchBarProp) => {
 	const [selectedType, setSelectedType] = React.useState<string>('');
-
-	const { definePokemonList } = usePokemonsListContext();
+	const { queryPokemonsByType } = useListPokemonByType();
+	const { queryPokemons } = useListPokemon();
 
 	const onSearchByType = async (typeName: any) => {
 		setSelectedType(typeName);
 		if (typeName && typeName !== selectedType) {
-			const { pokemonList, error } = await fetchPokemonByType(typeName);
-			definePokemonList(pokemonList);
+			setPage(1);
+			queryPokemonsByType(typeName, POKEMONS_PER_PAGE);
+		} else if (!typeName) {
+			queryPokemons(1);
 		}
 	};
 
@@ -24,7 +29,7 @@ export const SearchBar = () => {
 		<div className={styles.searchBar}>
 			<div className={styles.searchBar__searchByType}>
 				<div className={styles.searchBar__searchByType__title}>
-					Buscar por tipo
+					Search by type
 				</div>
 
 				<div className={styles.searchBar__searchByType__pokemonTypes}>
@@ -42,7 +47,7 @@ export const SearchBar = () => {
 					<Button
 						buttonStyle='badge'
 						bgColor={'white'}
-						onClick={onSearchByType}
+						onClick={() => onSearchByType(undefined)}
 						textColor='black'
 						name=''
 					>

@@ -43,11 +43,11 @@ export const CardContent = ({ type, pokemon }: CardContentProps) => {
 						<div className={styles.pokemon__characteristics}>
 							<div className={styles.characteristic}>
 								<div className={styles.value}>{pokemon.height} m</div>
-								<div>Altura</div>
+								<div>Height</div>
 							</div>
 							<div className={styles.characteristic}>
 								<div className={styles.value}>{pokemon.weight} Kg</div>
-								<div>Peso</div>
+								<div>Weight</div>
 							</div>
 						</div>
 					</div>
@@ -96,11 +96,11 @@ export const CardContent = ({ type, pokemon }: CardContentProps) => {
 						<div className={styles.pokemon__characteristics}>
 							<div className={styles.characteristic}>
 								<div className={styles.value}>{pokemon.height} m</div>
-								<div>Altura</div>
+								<div>Height</div>
 							</div>
 							<div className={styles.characteristic}>
 								<div className={styles.value}>{pokemon.weight} Kg</div>
-								<div>Peso</div>
+								<div>Weight</div>
 							</div>
 						</div>
 					</div>

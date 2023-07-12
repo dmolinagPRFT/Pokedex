@@ -1,26 +1,25 @@
 import React from 'react';
-import { TextField, Label, Input } from 'react-aria-components';
+import { TextField, Input } from 'react-aria-components';
 
 import styles from './input.module.scss';
 
 type Props = {
-	onChange?: (e: any) => void;
-	label?: React.ReactNode;
+	onChange: (e: string) => void;
 	isRequired?: boolean;
 	disabled?: boolean;
 	tabIndex?: number;
+	loading?: boolean;
 };
 
 export const InputComp = ({ disabled = false, ...props }: Props) => {
 	return (
-		<TextField isRequired={props.isRequired} className={styles.container}>
-			{props.label && (
-				<Label className={styles.label}>
-					{props.label}:{props.isRequired && '*'}
-				</Label>
-			)}
-
-			<Input />
+		<TextField
+			isRequired={props.isRequired}
+			className={styles.container}
+			aria-label='search term'
+		>
+			<Input onChange={(e) => props.onChange(e.target.value)} />
+			{props.loading && <div className={styles.container__spinner}></div>}
 		</TextField>
 	);
 };

@@ -3,21 +3,20 @@
 
 .searchBar {
 	display: flex;
-	justify-content: center;
-	width: 100%;
-	margin: 2rem 0px;
+	flex-direction: column;
+	margin: 2rem 3rem;
+  gap: 2rem;
 
 	&__searchByType {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		width: 80%;
 
 		&__title {
 			color: $white;
 			font-size: $size-lg;
 			font-weight: $text;
-			margin-bottom: 1rem;
+			margin: 1rem;
 		}
 
 		&__pokemonTypes {
@@ -26,7 +25,27 @@
 			gap: 8px;
 			width: 100%;
 			overflow-x: scroll;
-			padding: 0.5rem;
 		}
 	}
+
+	&__searchByName {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		&__title {
+			color: $white;
+			font-size: $size-lg;
+			font-weight: $text;
+			margin: 1rem;
+		}
+	}
+}
+
+
+/* On screens that are 992px or less, set the background color to blue */
+@media screen and (min-width: 992px) {
+  .searchBar {
+    margin: 2rem 7rem;
+  }
 }

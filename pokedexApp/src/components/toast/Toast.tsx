@@ -3,8 +3,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useToastContext } from '../../utils';
 import 'react-toastify/dist/ReactToastify.css';
 
+const AUTO_CLOSE = 5000;
+
 export const Toast = () => {
-	const { state } = useToastContext();
+	const { state, showToast } = useToastContext();
 
 	useEffect(() => {
 		if (state.isDisplay) {
@@ -26,10 +28,25 @@ export const Toast = () => {
 		}
 	}, [state.isDisplay, state.message, state.type]);
 
+	useEffect(() => {
+		let closeTimeout: NodeJS.Timeout;
+		if (state.isDisplay) {
+			closeTimeout = setTimeout(() => {
+				showToast({
+					isDisplay: false,
+					message: '',
+					type: 'default',
+				});
+			}, AUTO_CLOSE + 10);
+		}
+
+		return () => clearTimeout(closeTimeout);
+	}, [state.isDisplay]);
+
 	return (
 		<ToastContainer
 			position='top-center'
-			autoClose={5000}
+			autoClose={AUTO_CLOSE}
 			hideProgressBar={false}
 			newestOnTop={false}
 			closeOnClick

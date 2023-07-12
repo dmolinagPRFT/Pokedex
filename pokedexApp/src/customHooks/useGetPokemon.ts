@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchPokemon } from '../api/fetchPokemon';
 import { PokemonObj } from '../types/Pokemon';
-import { useToastContext } from '../utils';
+import { usePokemonsListContext, useToastContext } from '../utils';
 
 export const INITIAL_POKEMON: PokemonObj = {
 	id: 0,
@@ -12,33 +12,53 @@ export const INITIAL_POKEMON: PokemonObj = {
 	stats: [{ base_stat: 1, stat: { name: 'test' } }],
 };
 
-export function useGetPokemon(id: number) {
+export function useGetPokemon(pokemon: number | string, initialRender = true) {
 	const { showToast } = useToastContext();
+	const { definePokemonList } = usePokemonsListContext();
 
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [randomPokemon, setRandomPokemon] =
 		useState<PokemonObj>(INITIAL_POKEMON);
 
-	useEffect(() => {
-		(async () => {
-			let pokemon;
-			pokemon = await fetchPokemon(id);
+	const queryPokemon = async (pokemon: string) => {
+		let retrievedPokemon = await fetchPokemon(pokemon.toLowerCase());
 
-			if (!pokemon.error) {
-				setRandomPokemon(pokemon.data);
-				setIsLoading(false);
-			} else {
-				pokemon = INITIAL_POKEMON;
-				setRandomPokemon(pokemon);
-				setIsLoading(false);
-				showToast({
-					isDisplay: true,
-					message: 'Error retrieving Pokemon',
-					type: 'error',
-				});
-			}
-		})();
+		if (!retrievedPokemon.error) {
+			let newPokemonList = [retrievedPokemon.data];
+			definePokemonList(newPokemonList, '');
+			setIsLoading(false);
+		} else {
+			setIsLoading(false);
+			showToast({
+				isDisplay: true,
+				message: 'Pokemon not found',
+				type: 'error',
+			});
+		}
+	};
+
+	useEffect(() => {
+		if (initialRender) {
+			(async () => {
+				let retrievedPokemon;
+				retrievedPokemon = await fetchPokemon(pokemon);
+
+				if (!retrievedPokemon.error) {
+					setRandomPokemon(retrievedPokemon.data);
+					setIsLoading(false);
+				} else {
+					retrievedPokemon = INITIAL_POKEMON;
+					setRandomPokemon(retrievedPokemon);
+					setIsLoading(false);
+					showToast({
+						isDisplay: true,
+						message: 'Error retrieving Pokemon',
+						type: 'error',
+					});
+				}
+			})();
+		}
 	}, []);
 
-	return { randomPokemon, isLoading };
+	return { randomPokemon, isLoading, queryPokemon };
 }

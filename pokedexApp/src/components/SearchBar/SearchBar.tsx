@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { pokemonTypes } from '../../pokemonTypes';
-import { Button } from '../';
+import { Button, InputComp } from '../';
 import { PokemonBadgeType } from '../pokemonBadgeType/PokemonBadgeType';
 import styles from './searchBar.module.scss';
-import { useListPokemon, useListPokemonByType } from '../../customHooks';
+import {
+	useGetPokemon,
+	useListPokemon,
+	useListPokemonByType,
+} from '../../customHooks';
 import { POKEMONS_PER_PAGE } from '../../utils/constants';
 
 interface SearchBarProp {
@@ -12,8 +16,29 @@ interface SearchBarProp {
 
 export const SearchBar = ({ setPage }: SearchBarProp) => {
 	const [selectedType, setSelectedType] = React.useState<string>('');
+	const [searchTerm, setSearchTerm] = React.useState<string>('');
 	const { queryPokemonsByType } = useListPokemonByType();
 	const { queryPokemons } = useListPokemon();
+	const { queryPokemon } = useGetPokemon(searchTerm, false);
+	const [queryLoading, setQueryLoading] = React.useState<boolean>(false);
+
+	useEffect(() => {
+		let delayDebounceFn: NodeJS.Timeout;
+		if (searchTerm.length > 3) {
+			delayDebounceFn = setTimeout(() => {
+				queryPokemon(searchTerm);
+				setQueryLoading(false);
+				clearTimeout(delayDebounceFn);
+			}, 1500);
+		} else if (searchTerm.length === 0) {
+			queryPokemons(0, true);
+			setQueryLoading(false);
+		} else {
+			setQueryLoading(false);
+		}
+
+		return () => clearTimeout(delayDebounceFn);
+	}, [searchTerm]);
 
 	const onSearchByType = async (typeName: any) => {
 		setSelectedType(typeName);
@@ -25,12 +50,17 @@ export const SearchBar = ({ setPage }: SearchBarProp) => {
 		}
 	};
 
+	const handleSearch = (value: string) => {
+		setSearchTerm(value);
+		setQueryLoading(true);
+	};
+
 	return (
 		<div className={styles.searchBar}>
 			<div className={styles.searchBar__searchByType}>
-				<div className={styles.searchBar__searchByType__title}>
+				<h2 className={styles.searchBar__searchByType__title}>
 					Search by type
-				</div>
+				</h2>
 
 				<div className={styles.searchBar__searchByType__pokemonTypes}>
 					{pokemonTypes.map((type) => {
@@ -56,9 +86,12 @@ export const SearchBar = ({ setPage }: SearchBarProp) => {
 				</div>
 			</div>
 
-			{/* <div>
-				<InputComp />
-			</div> */}
+			<div className={styles.searchBar__searchByName}>
+				<h2 className={styles.searchBar__searchByName__title}>
+					Search by name
+				</h2>
+				<InputComp onChange={handleSearch} loading={queryLoading} />
+			</div>
 		</div>
 	);
 };

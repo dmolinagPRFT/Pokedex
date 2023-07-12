@@ -6,7 +6,10 @@ type loadingSpinnerProps = {
 	children: React.ReactNode;
 };
 
-export const LoadingSpinner = ({ isLoading, children }: loadingSpinnerProps) => {
+export const LoadingSpinner = ({
+	isLoading,
+	children,
+}: loadingSpinnerProps) => {
 	return (
 		<div className={styles.loadingSpinner}>
 			{isLoading && (

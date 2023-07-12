@@ -2,11 +2,44 @@
 
 .container {
 	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
+	flex-direction: row;
+  align-items: center;
+  gap: 5px;
 
 	.label {
 		font-size: $size-sm;
 		font-weight: $text;
+	}
+
+	input {
+		width: 100%;
+		height: 40px;
+		font-size: 1.7rem;
+		border-radius: 10px;
+	}
+
+	&__spinner {
+		width: 20px;
+		height: 17px;
+		border: 8px solid #f3f3f3; /* Light grey */
+		border-top: 8px solid #383636; /* Black */
+		border-radius: 50%;
+		animation: spinner 1.5s linear infinite;
+	}
+}
+
+/* On screens that are 992px or less, set the background color to blue */
+@media screen and (min-width: 992px) {
+	.container {
+		width: 30%;
+	}
+}
+
+@keyframes spinner {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
 	}
 }

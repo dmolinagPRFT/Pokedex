@@ -26,7 +26,7 @@ export const ToastProvider = ({ children }: any) => {
 	});
 
 	const showToast = ({ isDisplay, type, message }: ToastState) => {
-		setState({ isDisplay: true, message: message, type: type });
+		setState({ isDisplay: isDisplay, message: message, type: type });
 	};
 
 	return (

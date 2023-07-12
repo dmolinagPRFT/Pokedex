@@ -4,6 +4,7 @@ import { getPokemonColor } from '../../utils/pokemonFunctions';
 import { usePokemonsListContext } from '../../utils';
 import { useListPokemon, useListPokemonByType } from '../../customHooks';
 import { POKEMONS_PER_PAGE } from '../../utils/constants';
+import styles from './pokemonList.module.scss';
 
 interface PokemonListProp {
 	page: number;
@@ -26,22 +27,26 @@ export const PokemonList = ({ page, setPage }: PokemonListProp) => {
 	};
 
 	return (
-		<div className='pokemonList'>
-			{pokemonList.map((pokemon: PokemonObj) => {
-				return (
-					<Card
-						size='md'
-						backgroundColor={getPokemonColor(pokemon).color}
-						key={pokemon.id}
-					>
-						<CardContent type='vertical' pokemon={pokemon} />
-					</Card>
-				);
-			})}
+		<section className={styles.pokemonList}>
+			<div className={styles.pokemonList__list}>
+				{pokemonList.map((pokemon: PokemonObj) => {
+					return (
+						<Card
+							size='md'
+							backgroundColor={getPokemonColor(pokemon).color}
+							key={pokemon.id}
+						>
+							<CardContent type='vertical' pokemon={pokemon} />
+						</Card>
+					);
+				})}
+			</div>
 
-			<Button buttonStyle='primary' onClick={handleLoadMore}>
-				Load more
-			</Button>
-		</div>
+			<div className={styles.pokemonList__button}>
+				<Button buttonStyle='primary' onClick={handleLoadMore}>
+					Load more
+				</Button>
+			</div>
+		</section>
 	);
 };

@@ -1,0 +1,204 @@
+@import '../../css/variables/colors.scss';
+@import '../../css/variables/fontSizes.scss';
+
+.pokemonModal {
+	box-shadow: 0 8px 20px rgba(0 0 0 / 0.1);
+	border-radius: 6px;
+	background: rgba(0 0 0 / 0.5);
+	// border: 1px solid var(--spectrum-global-color-gray-300);
+	outline: none;
+	padding: 10px;
+	width: 100%;
+	color: $white;
+	height: 60%;
+	transform: translate(0, 10%);
+
+	&[data-entering] {
+		animation: zoom 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	}
+
+	&[data-exiting] {
+		animation: fade 150ms reverse ease-in;
+	}
+
+	&__dialog {
+		outline: none;
+		height: -webkit-fill-available;
+
+		&__container {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			height: inherit;
+		}
+	}
+}
+
+@keyframes fade {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes zoom {
+	from {
+		transform: scale(0.8);
+	}
+
+	to {
+		transform: scale(1);
+	}
+}
+
+.cardContent {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	margin: 0.5rem auto;
+	width: 90%;
+
+	&__pokemonInfo {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		position: relative;
+		top: -15rem;
+		gap: 0.3rem;
+
+		&__number {
+			color: $white;
+			font-size: $size-md;
+			font-weight: $text-bold;
+			text-shadow: 2px 2px 4px $black;
+		}
+
+		&__name {
+			color: $white;
+			font-size: $size-lg;
+			font-weight: $text;
+			text-transform: capitalize;
+			text-shadow: 2px 2px 4px $black;
+		}
+	}
+
+	&__image {
+		position: relative;
+		top: -15rem;
+		width: 55%;
+	}
+
+	&__badgeList {
+		display: flex;
+		flex-direction: row;
+		gap: 0.5rem;
+	}
+
+	&__characteristics {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 3rem;
+		color: $white;
+		font-size: $size-sm;
+		font-weight: $text;
+		text-shadow: 2px 2px 4px $black;
+
+		.characteristic {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			.value {
+				font-weight: $text-bold;
+			}
+		}
+	}
+}
+
+.stats {
+	width: 100%;
+	position: relative;
+	top: -15rem;
+	margin: 0.5rem auto;
+	width: 90%;
+
+	&__stat {
+		display: grid;
+		grid-template-columns: 30% 5% 65%;
+		margin-bottom: 20px;
+		font-weight: $text-bold;
+		font-size: $size-sm;
+	}
+}
+
+@media screen and (min-width: 700px) {
+	.pokemonModal {
+		width: 70%;
+		height: 30%;
+
+		&__dialog {
+			&__container {
+				display: flex;
+				flex-direction: row;
+			}
+		}
+	}
+
+	.cardContent {
+		width: 50%;
+
+		&__pokemonInfo {
+			top: -12rem;
+		}
+
+		&__image {
+			top: -12rem;
+		}
+	}
+
+	.stats {
+		top: 4.5rem;
+		width: 50%;
+		height: fit-content;
+		margin: 0 2rem;
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.pokemonModal {
+		width: 70%;
+		height: 30%;
+		background-color: red;
+
+		&__dialog {
+			&__container {
+				display: flex;
+				flex-direction: row;
+			}
+		}
+	}
+
+	.cardContent {
+		width: 50%;
+
+		&__pokemonInfo {
+			top: -12rem;
+		}
+
+		&__image {
+			top: -12rem;
+		}
+	}
+
+	.stats {
+		top: 4.5rem;
+		width: 50%;
+		height: fit-content;
+		margin: 0 2rem;
+	}
+}

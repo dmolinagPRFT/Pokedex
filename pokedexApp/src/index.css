@@ -11,3 +11,69 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.react-aria-ModalOverlay {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: var(--visual-viewport-height);
+  background: rgba(0 0 0 / .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &[data-entering] {
+    animation: fade 200ms;
+  }
+
+  &[data-exiting] {
+    animation: fade 150ms reverse ease-in;
+  }
+}
+
+.react-aria-Meter {
+  --bar-color: var(--spectrum-global-color-gray-500);
+  --fill-color: forestgreen;
+  --text-color: var(--spectrum-alias-text-color);
+
+  display: grid;
+  grid-template-areas: "label value"
+                       "bar bar";
+  grid-template-columns: 1fr auto;
+  gap: 4px;
+  width: 100%;
+  color: var(--text-color);
+
+  .value {
+    grid-area: value;
+  }
+
+  .bar {
+    grid-area: bar;
+    box-shadow: inset 0px 0px 0px 1px var(--bar-color);
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .fill {
+    background: var(--fill-color);
+    height: 100%;
+  }
+}
+
+@media (forced-colors: active) {
+  .react-aria-Meter {
+    --bar-color: ButtonFace;
+    --text-color: ButtonText;
+    --fill-color: Highlight;
+
+    .bar {
+      border: 1px solid ButtonBorder;
+      box-sizing: border-box;
+    }
+  }
+}

@@ -4,15 +4,25 @@ type CardProps = {
 	size?: CardSize;
 	backgroundColor?: string;
 	children: React.ReactElement | undefined;
+	openModal?: () => void;
 };
 
 type CardSize = 'sm' | 'md' | 'lg';
 
-export const Card = ({ size = 'md', backgroundColor, children }: CardProps) => {
+export const Card = ({
+	size = 'md',
+	backgroundColor,
+	children,
+	openModal,
+}: CardProps) => {
 	const className = `${styles.card} ${getSizeClass(size)} `;
 
 	return (
-		<div className={className} style={{ backgroundColor: backgroundColor }}>
+		<div
+			className={className}
+			style={{ backgroundColor: backgroundColor }}
+			onClick={openModal}
+		>
 			{children}
 		</div>
 	);

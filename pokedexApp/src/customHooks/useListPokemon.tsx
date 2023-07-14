@@ -8,17 +8,16 @@ export function useListPokemon() {
 
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 
-	const queryPokemons = async (page: number, firstPageOnly = false) => {
+	const queryPokemons = async (page: number, isFirstPageOnly = false) => {
+  
 		setIsLoading(true);
 		const response = await fetchPokemonList(page + 1);
 
 		if (!response.error) {
-			let newPokemonList = !firstPageOnly
+			let newPokemonList = !isFirstPageOnly
 				? [...pokemonList.concat(response.pokemonList)]
 				: response.pokemonList;
-			if (page === 1) {
-				newPokemonList = response.pokemonList;
-			}
+
 			definePokemonList(newPokemonList, '');
 			setIsLoading(false);
 		} else {

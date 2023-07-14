@@ -46,7 +46,7 @@ export const SearchBar = ({ setPage }: SearchBarProp) => {
 			setPage(1);
 			queryPokemonsByType(typeName, POKEMONS_PER_PAGE);
 		} else if (!typeName) {
-			queryPokemons(1);
+			queryPokemons(0, true);
 		}
 	};
 

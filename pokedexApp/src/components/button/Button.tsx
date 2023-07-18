@@ -26,7 +26,6 @@ export const Button = ({
 	...props
 }: Props) => {
 	let ref = React.useRef(null);
-	let { buttonProps } = useButton(props, ref);
 
 	const className = `${getSizeClass(size)} ${getStyleClass(buttonStyle)}`;
 
@@ -39,7 +38,6 @@ export const Button = ({
 			role={props.role}
 			tabIndex={props.tabIndex}
 			style={{ background: props.bgColor, color: textColor && textColor }}
-			{...buttonProps}
 			ref={ref}
 		>
 			{props.children}

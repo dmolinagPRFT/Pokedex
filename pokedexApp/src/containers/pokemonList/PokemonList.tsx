@@ -10,10 +10,18 @@ import { POKEMONS_PER_PAGE } from '../../utils/constants';
 import styles from './pokemonList.module.scss';
 import { useState } from 'react';
 import { Button, Card, CardContent, PokemonModal } from '../../components';
+import { getFavoritePokemons, setFavoritePokemons } from '../../utils/setGetFavorites';
+import _ from 'lodash';
 
 interface PokemonListProp {
 	page: number;
 	setPage: (page: number) => void;
+}
+
+const favoritesJSON = localStorage.getItem('favorites');
+let favoritesArray: number[] = [];
+if (favoritesJSON !== null) {
+	favoritesArray = JSON.parse(favoritesJSON);
 }
 
 export const PokemonList = ({ page, setPage }: PokemonListProp) => {
@@ -24,6 +32,7 @@ export const PokemonList = ({ page, setPage }: PokemonListProp) => {
 	const [isOpen, setOpen] = useState(false);
 	const [selectedPokemon, setSelectedPokemon] =
 		useState<PokemonObj>(INITIAL_POKEMON);
+	const [favPokemons, setFavPokemons] = useState<number[]>(getFavoritePokemons);
 
 	const handleLoadMore = async () => {
 		const nextPage = page + 1;
@@ -41,6 +50,26 @@ export const PokemonList = ({ page, setPage }: PokemonListProp) => {
 		setSelectedPokemon(pokemon);
 	};
 
+	const handleSetFavorite = (pokemonId: number) => {
+		setFavPokemons((prevState) => prevState.concat(pokemonId));
+		setFavoritePokemons([...favPokemons, pokemonId]);
+	};
+
+	const handleRemoveFavorite = (pokemonId: number) => {
+		const savedPokemon = favPokemons.filter(
+			(savedPokemon: number) => savedPokemon === pokemonId
+		);
+
+		if (savedPokemon.length > 0) {
+			const newArray = [...favPokemons];
+			_.remove(newArray, (n) => {
+				return n === savedPokemon[0];
+			});
+			setFavPokemons(newArray);
+			setFavoritePokemons(newArray);
+		}
+	};
+
 	return (
 		<section className={styles.pokemonList}>
 			<div className={styles.pokemonList__list}>
@@ -50,9 +79,15 @@ export const PokemonList = ({ page, setPage }: PokemonListProp) => {
 							size='md'
 							backgroundColor={getPokemonColor(pokemon).color}
 							key={pokemon.id}
-							openModal={() => handleOpenModal(pokemon)}
 						>
-							<CardContent type='vertical' pokemon={pokemon} />
+							<CardContent
+								type='vertical'
+								pokemon={pokemon}
+								openModal={() => handleOpenModal(pokemon)}
+								favPokemons={favPokemons}
+								onSetFavorites={handleSetFavorite}
+								onRemoveFavorites={handleRemoveFavorite}
+							/>
 						</Card>
 					);
 				})}

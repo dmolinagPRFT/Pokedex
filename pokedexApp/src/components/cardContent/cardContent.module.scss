@@ -6,6 +6,15 @@
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
+	position: relative;
+
+	&__favorite {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+    color: $red;
+    z-index: 5;
+	}
 
 	&__pokemonInfo {
 		display: flex;

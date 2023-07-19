@@ -1,9 +1,11 @@
+import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Button } from '../../components';
 import { UserForm } from './userForm/UserForm';
 import styles from './userPage.module.scss';
+import { getUserInfo, setUserInfo } from '../../utils/setGetLocalStorageInfo';
 
-interface User {
+export interface User {
 	name: string;
 	lastname: string;
 	username: string;
@@ -25,9 +27,22 @@ export const UserPage = () => {
 
 	const { handleSubmit, reset } = methods;
 
-	const onSubmit = (values: any) => {
-		console.log(values);
+	const onSubmit = (values: User) => {
+		setUserInfo(values);
 	};
+
+	React.useEffect(() => {
+		const user: User | null = getUserInfo();
+
+		if (user) {
+			reset({
+				name: user.name,
+				lastname: user.lastname,
+				username: user.username,
+				email: user.email,
+			});
+		}
+	}, []);
 
 	return (
 		<div className={styles.userPage}>

@@ -10,18 +10,15 @@ import { POKEMONS_PER_PAGE } from '../../../utils/constants';
 import styles from './pokemonList.module.scss';
 import { useState } from 'react';
 import { Button, Card, CardContent, PokemonModal } from '../../../components';
-import { getFavoritePokemons, setFavoritePokemons } from '../../../utils/setGetFavorites';
+import {
+	getFavoritePokemons,
+	setFavoritePokemons,
+} from '../../../utils/setGetLocalStorageInfo';
 import _ from 'lodash';
 
 interface PokemonListProp {
 	page: number;
 	setPage: (page: number) => void;
-}
-
-const favoritesJSON = localStorage.getItem('favorites');
-let favoritesArray: number[] = [];
-if (favoritesJSON !== null) {
-	favoritesArray = JSON.parse(favoritesJSON);
 }
 
 export const PokemonList = ({ page, setPage }: PokemonListProp) => {

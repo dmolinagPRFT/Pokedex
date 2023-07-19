@@ -1,4 +1,3 @@
-import React from 'react';
 import { TextField, Input } from 'react-aria-components';
 
 import styles from './input.module.scss';
@@ -10,6 +9,7 @@ type Props = {
 	disabled?: boolean;
 	tabIndex?: number;
 	loading?: boolean;
+	value?: string;
 };
 
 export const InputComp = ({ disabled = false, ...props }: Props) => {
@@ -25,6 +25,7 @@ export const InputComp = ({ disabled = false, ...props }: Props) => {
 			<Input
 				onChange={(e) => props.onChange(e.target.value)}
 				placeholder={props.label}
+				value={props.value}
 			/>
 			{props.loading && <div className={styles.container__spinner}></div>}
 		</TextField>

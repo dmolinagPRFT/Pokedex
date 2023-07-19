@@ -1,2 +1,1 @@
-export * from './home/Home';
-export * from './pokemonList/PokemonList';
+export * from './mainPage/MainPage';

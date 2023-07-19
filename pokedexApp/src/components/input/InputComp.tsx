@@ -5,6 +5,7 @@ import styles from './input.module.scss';
 
 type Props = {
 	onChange: (e: string) => void;
+	label?: string;
 	isRequired?: boolean;
 	disabled?: boolean;
 	tabIndex?: number;
@@ -12,13 +13,19 @@ type Props = {
 };
 
 export const InputComp = ({ disabled = false, ...props }: Props) => {
+	const mClassname = props.label ? styles.labelInput : '';
+
 	return (
 		<TextField
 			isRequired={props.isRequired}
-			className={styles.container}
+			className={`${mClassname} ${styles.container}`}
 			aria-label='search term'
 		>
-			<Input onChange={(e) => props.onChange(e.target.value)} />
+			{props.label && <label>{props.label}:</label>}
+			<Input
+				onChange={(e) => props.onChange(e.target.value)}
+				placeholder={props.label}
+			/>
 			{props.loading && <div className={styles.container__spinner}></div>}
 		</TextField>
 	);

@@ -1,7 +1,7 @@
-import { PokemonObj } from '../../types/Pokemon';
-import { Card, CardContent } from '../../components';
+import { PokemonObj } from '../../../types/Pokemon';
+import { Card, CardContent } from '../../../components';
 import styles from './home.module.scss';
-import { getPokemonColor } from '../../utils/pokemonFunctions';
+import { getPokemonColor } from '../../../utils/pokemonFunctions';
 
 type HomeProps = {
 	pokemon: PokemonObj;

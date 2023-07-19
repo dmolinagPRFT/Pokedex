@@ -1,0 +1,11 @@
+@import '../../css/variables/colors.scss';
+
+.userPage {
+	display: flex;
+	flex-direction: column;
+	color: $white;
+	margin: 1rem;
+	align-items: center;
+  height: 74vh;
+  gap: 20px;
+}

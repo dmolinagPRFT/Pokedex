@@ -1,5 +1,4 @@
 import React, { MouseEvent } from 'react';
-import { useButton } from 'react-aria';
 import styles from './button.module.scss';
 
 type ButtonStyle = 'primary' | 'secondary' | 'badge';
@@ -16,6 +15,7 @@ type Props = {
 	bgColor?: string;
 	name?: string;
 	textColor?: string;
+  type?: "button" | "submit" | "reset" | undefined;
 };
 
 export const Button = ({
@@ -23,6 +23,7 @@ export const Button = ({
 	size = 'md',
 	disabled = false,
 	textColor,
+  type = 'button',
 	...props
 }: Props) => {
 	let ref = React.useRef(null);
@@ -39,6 +40,7 @@ export const Button = ({
 			tabIndex={props.tabIndex}
 			style={{ background: props.bgColor, color: textColor && textColor }}
 			ref={ref}
+      type={type}
 		>
 			{props.children}
 		</button>

@@ -38,3 +38,8 @@ export const getUserInfo = (): User | null => {
 
 	return null;
 };
+
+export const clearLocalStorage = () => {
+	localStorage.removeItem(USER_INFO);
+	localStorage.removeItem(FAVORITE_POKEMONS);
+};

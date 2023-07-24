@@ -65,6 +65,10 @@ code {
   }
 }
 
+a {
+  text-decoration: none;
+}
+
 @media (forced-colors: active) {
   .react-aria-Meter {
     --bar-color: ButtonFace;

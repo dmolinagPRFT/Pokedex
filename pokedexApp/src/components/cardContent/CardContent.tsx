@@ -3,6 +3,7 @@ import { formatPokemonId } from '../../utils/pokemonFunctions';
 import { PokemonBadgeType } from '../';
 import styles from './cardContent.module.scss';
 import { BiHeart, BiSolidHeart } from 'react-icons/bi';
+import { getUserInfo } from '../../utils/setGetLocalStorageInfo';
 
 type CardContentProps = {
 	type: CardType;
@@ -29,6 +30,12 @@ export const CardContent = ({
 		const savedPokemon = favPokemons.filter(
 			(savedPokemon: number) => savedPokemon === pokemon.id
 		);
+
+		const user = getUserInfo();
+
+		if (!user) {
+			return null;
+		}
 
 		if (savedPokemon.length > 0) {
 			return (

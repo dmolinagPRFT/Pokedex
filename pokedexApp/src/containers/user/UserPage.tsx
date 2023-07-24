@@ -4,6 +4,7 @@ import { Button } from '../../components';
 import { UserForm } from './userForm/UserForm';
 import styles from './userPage.module.scss';
 import { getUserInfo, setUserInfo } from '../../utils/setGetLocalStorageInfo';
+import { useToastContext } from '../../utils';
 
 export interface User {
 	name: string;
@@ -20,6 +21,8 @@ const initialFormValues: User = {
 };
 
 export const UserPage = () => {
+	const { showToast } = useToastContext();
+
 	const methods = useForm({
 		defaultValues: initialFormValues,
 		mode: 'onSubmit',
@@ -29,6 +32,11 @@ export const UserPage = () => {
 
 	const onSubmit = (values: User) => {
 		setUserInfo(values);
+		showToast({
+			isDisplay: true,
+			message: 'Log in successfully',
+			type: 'success',
+		});
 	};
 
 	React.useEffect(() => {
@@ -49,10 +57,12 @@ export const UserPage = () => {
 			<h2>User</h2>
 			<FormProvider {...methods}>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<UserForm />
-					<Button buttonStyle='primary' type='submit'>
-						Save
-					</Button>
+					<div className={styles.userPage}>
+						<UserForm />
+						<Button buttonStyle='primary' type='submit'>
+							Save
+						</Button>
+					</div>
 				</form>
 			</FormProvider>
 		</div>

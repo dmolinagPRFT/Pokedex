@@ -1,9 +1,9 @@
 import { ReactComponent as PokemonLogo } from '../../../assets/logo-pokemon.svg';
-import { useToastContext } from '../../../utils';
 import {
+	useToastContext,
 	clearLocalStorage,
 	getUserInfo,
-} from '../../../utils/setGetLocalStorageInfo';
+} from '../../../utils';
 import { Button } from '../../button/Button';
 import styles from './header.module.scss';
 import { Link, useLocation, useNavigate } from 'react-router-dom';

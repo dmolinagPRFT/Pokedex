@@ -3,8 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { Button } from '../../components';
 import { UserForm } from './userForm/UserForm';
 import styles from './userPage.module.scss';
-import { getUserInfo, setUserInfo } from '../../utils/setGetLocalStorageInfo';
-import { useToastContext } from '../../utils';
+import { useToastContext, getUserInfo, setUserInfo } from '../../utils';
 import { FavoriteList } from './listFavorites/FavoriteList';
 
 export interface User {
@@ -63,7 +62,7 @@ export const UserPage = () => {
 						<Button buttonStyle='primary' type='submit'>
 							Save
 						</Button>
-            <FavoriteList />
+						<FavoriteList />
 					</div>
 				</form>
 			</FormProvider>

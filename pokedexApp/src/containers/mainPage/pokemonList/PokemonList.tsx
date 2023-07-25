@@ -1,19 +1,20 @@
 import { PokemonObj } from '../../../types/Pokemon';
 import { getPokemonColor } from '../../../utils/pokemonFunctions';
-import { usePokemonsListContext } from '../../../utils';
+import {
+	usePokemonsListContext,
+	getFavoritePokemons,
+	setFavoritePokemons,
+	POKEMONS_PER_PAGE,
+} from '../../../utils';
 import {
 	INITIAL_POKEMON,
 	useListPokemon,
 	useListPokemonByType,
 } from '../../../customHooks';
-import { POKEMONS_PER_PAGE } from '../../../utils/constants';
 import styles from './pokemonList.module.scss';
 import { useState } from 'react';
 import { Button, Card, CardContent, PokemonModal } from '../../../components';
-import {
-	getFavoritePokemons,
-	setFavoritePokemons,
-} from '../../../utils/setGetLocalStorageInfo';
+import {} from '../../../utils';
 import _ from 'lodash';
 
 interface PokemonListProp {

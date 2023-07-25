@@ -9,7 +9,7 @@ type HomeProps = {
 
 export const Home = ({ pokemon }: HomeProps) => {
 	return (
-		<div className={styles.home}>
+		<section className={styles.home}>
 			<Card size='lg' backgroundColor={getPokemonColor(pokemon).color}>
 				<>
 					<h2 className={styles.card__title}>
@@ -18,6 +18,6 @@ export const Home = ({ pokemon }: HomeProps) => {
 					<CardContent type='horizontal' pokemon={pokemon} />
 				</>
 			</Card>
-		</div>
+		</section>
 	);
 };

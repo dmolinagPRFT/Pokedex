@@ -3,7 +3,7 @@ import { formatPokemonId } from '../../utils/pokemonFunctions';
 import { PokemonBadgeType } from '../';
 import styles from './cardContent.module.scss';
 import { BiHeart, BiSolidHeart } from 'react-icons/bi';
-import { getUserInfo } from '../../utils/setGetLocalStorageInfo';
+import { getUserInfo } from '../../utils';
 
 type CardContentProps = {
 	type: CardType;

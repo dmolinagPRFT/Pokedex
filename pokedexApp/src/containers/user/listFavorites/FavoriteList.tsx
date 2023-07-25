@@ -1,18 +1,14 @@
 import { useEffect, useState } from 'react';
 import styles from './favoriteList.module.scss';
-import {
-	getFavoritePokemons,
-	setFavoritePokemons,
-} from '../../../utils/setGetLocalStorageInfo';
-import { useGetPokemonById } from '../../../customHooks/useGetPokemonById';
+import { getFavoritePokemons, setFavoritePokemons } from '../../../utils';
 import { PokemonObj } from '../../../types/Pokemon';
 import { BiSolidHeart } from 'react-icons/bi';
 import _ from 'lodash';
+import { useGetPokemonById } from '../../../customHooks';
 
 export const FavoriteList = () => {
 	const pokemonIds = getFavoritePokemons();
-	const { queryPokemonsById, pokemonsArray } =
-		useGetPokemonById();
+	const { queryPokemonsById, pokemonsArray } = useGetPokemonById();
 	const [favPokemons, setFavPokemons] = useState<PokemonObj[]>([]);
 
 	const favPokemonsLength: number = pokemonsArray.length;

@@ -3,8 +3,7 @@ import { SearchBar } from '../../components';
 import { Home } from './home/Home';
 import { PokemonList } from './pokemonList/PokemonList';
 import { useGetPokemon } from '../../customHooks';
-
-const MAX_POKEMON = 150;
+import { MAX_POKEMON } from '../../utils';
 
 export const MainPage = () => {
 	const randomNumber: number = Math.floor(Math.random() * MAX_POKEMON);

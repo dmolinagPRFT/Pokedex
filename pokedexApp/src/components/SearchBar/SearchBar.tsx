@@ -56,34 +56,38 @@ export const SearchBar = ({ setPage }: SearchBarProp) => {
 	};
 
 	return (
-		<div className={styles.searchBar}>
+		<section className={styles.searchBar}>
 			<div className={styles.searchBar__searchByType}>
 				<h2 className={styles.searchBar__searchByType__title}>
 					Search by type
 				</h2>
 
-				<div className={styles.searchBar__searchByType__pokemonTypes}>
+				<ul className={styles.searchBar__searchByType__pokemonTypes}>
 					{pokemonTypes.map((type) => {
 						return (
-							<PokemonBadgeType
-								key={type.name}
-								type={type.name}
-								tabIndex={false}
-								button={true}
-								handleClick={onSearchByType}
-							/>
+							<li>
+								<PokemonBadgeType
+									key={type.name}
+									type={type.name}
+									tabIndex={false}
+									button={true}
+									handleClick={onSearchByType}
+								/>
+							</li>
 						);
 					})}
-					<Button
-						buttonStyle='badge'
-						bgColor={'white'}
-						onClick={() => onSearchByType(undefined)}
-						textColor='black'
-						name=''
-					>
-						Clear
-					</Button>
-				</div>
+					<li>
+						<Button
+							buttonStyle='badge'
+							bgColor={'white'}
+							onClick={() => onSearchByType(undefined)}
+							textColor='black'
+							name=''
+						>
+							Clear
+						</Button>
+					</li>
+				</ul>
 			</div>
 
 			<div className={styles.searchBar__searchByName}>
@@ -92,6 +96,6 @@ export const SearchBar = ({ setPage }: SearchBarProp) => {
 				</h2>
 				<InputComp onChange={handleSearch} loading={queryLoading} />
 			</div>
-		</div>
+		</section>
 	);
 };

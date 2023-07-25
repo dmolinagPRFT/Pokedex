@@ -1,0 +1,31 @@
+@import '../../../css/variables/colors.scss';
+@import '../../../css/variables/fontSizes.scss';
+
+.favoriteList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  
+	&__pokemon {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+
+		&__image {
+			width: 15%;
+		}
+
+		&__name {
+			color: $white;
+			font-size: $size-lg;
+			font-weight: $text;
+			text-transform: capitalize;
+			text-shadow: 2px 2px 4px $black;
+		}
+
+		&__icon {
+			color: $red;
+		}
+	}
+}

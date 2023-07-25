@@ -43,12 +43,12 @@ export const FavoriteList = () => {
 	};
 
 	return (
-		<div className={styles.favoriteList}>
+		<ul className={styles.favoriteList}>
 			{favPokemons.map((pokemon: PokemonObj) => {
 				const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemon.id}.png`;
 
 				return (
-					<div className={styles.favoriteList__pokemon}>
+					<li className={styles.favoriteList__pokemon}>
 						<img
 							src={imgUrl}
 							alt={pokemon.name}
@@ -62,9 +62,9 @@ export const FavoriteList = () => {
 							className={styles.favoriteList__pokemon__icon}
 							onClick={() => handleRemoveFavorite(pokemon.id)}
 						/>
-					</div>
+					</li>
 				);
 			})}
-		</div>
+		</ul>
 	);
 };

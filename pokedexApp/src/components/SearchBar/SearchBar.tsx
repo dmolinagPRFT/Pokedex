@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
-import { pokemonTypes } from "../../pokemonTypes";
-import { Button, InputComp } from "../";
-import { PokemonBadgeType } from "../pokemonBadgeType/PokemonBadgeType";
-import styles from "./searchBar.module.scss";
+
+import React, { useEffect } from 'react';
+import { pokemonTypes } from '../../pokemonTypes';
+import { Button, InputComp, PokemonBadgeType } from '../';
+import styles from './searchBar.module.scss';
 import {
   useGetPokemon,
   useListPokemon,
   useListPokemonByType,
-} from "../../customHooks";
-import { POKEMONS_PER_PAGE } from "../../utils/constants";
+} from '../../customHooks';
+import { POKEMONS_PER_PAGE } from '../../utils';
 
 interface SearchBarProp {
   setPage: (page: number) => void;

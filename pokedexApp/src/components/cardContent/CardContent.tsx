@@ -62,38 +62,7 @@ export const CardContent = ({
         <div
           className={`${styles.cardContent} ${styles.horizontalCardContent}`}
         >
-          <div
-            className={`${styles.cardContent__pokemonInfo} ${styles.horizontalCardContent__pokemonInfo}`}
-          >
-            <div className={styles.cardContent__pokemonInfo__number}>
-              {formatPokemonId(pokemon.id)}
-            </div>
-            <div className={styles.cardContent__pokemonInfo__name}>
-              {pokemon.name}
-            </div>
-
-            <div
-              className={`${styles.horizontalCardContent__pokemonInfo__badgeList}`}
-            >
-              {pokemon.types.map(({ type }) => (
-                <PokemonBadgeType
-                  key={type.name}
-                  type={type.name}
-                  tabIndex={false}
-                />
-              ))}
-            </div>
-            <div className={styles.pokemon__characteristics}>
-              <div className={styles.characteristic}>
-                <div className={styles.value}>{pokemon.height} m</div>
-                <div>Height</div>
-              </div>
-              <div className={styles.characteristic}>
-                <div className={styles.value}>{pokemon.weight} Kg</div>
-                <div>Weight</div>
-              </div>
-            </div>
-          </div>
+          {PokemonCharacteristics(pokemon)}
           <img
             src={imgUrl}
             alt={pokemon.name}
@@ -107,7 +76,6 @@ export const CardContent = ({
       return (
         <div className={styles.cardContent}>
           <div className={styles.cardContent__favorite}>{renderFav()}</div>
-
           <div
             className={`${styles.cardContent} ${styles.verticalCardContent}`}
           >
@@ -118,37 +86,7 @@ export const CardContent = ({
               className={styles.verticalCardContent__image}
             />
 
-            <div
-              className={`${styles.cardContent__pokemonInfo} ${styles.verticalCardContent__pokemonInfo}`}
-            >
-              <div className={styles.cardContent__pokemonInfo__number}>
-                {formatPokemonId(pokemon.id)}
-              </div>
-              <div className={styles.cardContent__pokemonInfo__name}>
-                {pokemon.name}
-              </div>
-
-              <div className={styles.cardContent__badgeList}>
-                {pokemon.types.map(({ type }) => (
-                  <PokemonBadgeType
-                    key={type.name}
-                    type={type.name}
-                    tabIndex={false}
-                    openPokemonTypeModal={openPokemonTypeModal}
-                  />
-                ))}
-              </div>
-              <div className={styles.pokemon__characteristics}>
-                <div className={styles.characteristic}>
-                  <div className={styles.value}>{pokemon.height} m</div>
-                  <div>Height</div>
-                </div>
-                <div className={styles.characteristic}>
-                  <div className={styles.value}>{pokemon.weight} Kg</div>
-                  <div>Weight</div>
-                </div>
-              </div>
-            </div>
+            {PokemonCharacteristics(pokemon, openPokemonTypeModal)}
           </div>
         </div>
       );
@@ -156,4 +94,43 @@ export const CardContent = ({
   };
 
   return <>{renderCardContent()}</>;
+};
+
+const PokemonCharacteristics = (
+  pokemon: PokemonObj,
+  openPokemonTypeModal?: ((a: boolean) => void) | undefined
+) => {
+  return (
+    <div
+      className={`${styles.cardContent__pokemonInfo} ${styles.verticalCardContent__pokemonInfo}`}
+    >
+      <div className={styles.cardContent__pokemonInfo__number}>
+        {formatPokemonId(pokemon.id)}
+      </div>
+      <div className={styles.cardContent__pokemonInfo__name}>
+        {pokemon.name}
+      </div>
+
+      <div className={styles.cardContent__badgeList}>
+        {pokemon.types.map(({ type }) => (
+          <PokemonBadgeType
+            key={type.name}
+            type={type.name}
+            tabIndex={false}
+            openPokemonTypeModal={openPokemonTypeModal}
+          />
+        ))}
+      </div>
+      <div className={styles.pokemon__characteristics}>
+        <div className={styles.characteristic}>
+          <div className={styles.value}>{pokemon.height} m</div>
+          <div>Height</div>
+        </div>
+        <div className={styles.characteristic}>
+          <div className={styles.value}>{pokemon.weight} Kg</div>
+          <div>Weight</div>
+        </div>
+      </div>
+    </div>
+  );
 };

@@ -5,7 +5,7 @@ import {
   getUserInfo,
 } from "../../../utils";
 import { Button } from "../../button/Button";
-import styles from "./Header.module.scss";
+import styles from "./header.module.scss";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export const Header = () => {

@@ -31,9 +31,8 @@ export const SearchByType = ({ setPage }: SearchBarProp) => {
       <ul className={styles.searchBar__searchByType__pokemonTypes}>
         {pokemonTypes.map((type) => {
           return (
-            <li>
+            <li key={type.name}>
               <PokemonBadgeType
-                key={type.name}
                 type={type.name}
                 tabIndex={false}
                 button={true}

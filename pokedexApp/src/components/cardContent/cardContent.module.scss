@@ -11,10 +11,19 @@
   &__favorite {
     position: absolute;
     top: 5px;
-    right: 5px;
+    right: 30px;
     color: $red;
     z-index: 5;
-    cursor: pointer; // use pointers in CTA's
+    cursor: pointer;
+  }
+
+  &__info {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: $white;
+    z-index: 5;
+    cursor: pointer;
   }
 
   &__pokemonInfo {
@@ -60,18 +69,15 @@
 
 .verticalCardContent {
   padding: 1rem;
-  // border-radius: 10px;
-  // background-image: radial-gradient(rgb(28, 216, 14), green);
 
   &__pokemonInfo {
     gap: 0.3rem;
-    user-select: none; // disable other interactions at CTA's
+    user-select: none;
   }
 
   &__image {
     width: 80%;
     height: 80%;
-    cursor: pointer; // use pointers in CTA's
   }
 }
 

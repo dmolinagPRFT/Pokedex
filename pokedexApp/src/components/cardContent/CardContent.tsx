@@ -2,7 +2,7 @@ import { PokemonObj } from "../../types/Pokemon";
 import { formatPokemonId } from "../../utils/pokemonFunctions";
 import { PokemonBadgeType } from "../";
 import styles from "./cardContent.module.scss";
-import { BiHeart, BiSolidHeart } from "react-icons/bi";
+import { BiHeart, BiSolidHeart, BiInfoCircle } from "react-icons/bi";
 import { getUserInfo } from "../../utils";
 
 type CardContentProps = {
@@ -62,7 +62,7 @@ export const CardContent = ({
         <div
           className={`${styles.cardContent} ${styles.horizontalCardContent}`}
         >
-          {PokemonCharacteristics(pokemon)}
+          {renderPokemonCharacteristics(pokemon)}
           <img
             src={imgUrl}
             alt={pokemon.name}
@@ -71,22 +71,22 @@ export const CardContent = ({
         </div>
       );
     } else {
-      // openPokemonTypeModal will be dedicated only for the PokemonBadgeType rendered by the search result
-      // (code smell) this component is growing a lot! that's a great oportunity to do some refactor in here
       return (
         <div className={styles.cardContent}>
           <div className={styles.cardContent__favorite}>{renderFav()}</div>
+          <div className={styles.cardContent__info} onClick={openModal}>
+            <BiInfoCircle size={"1.5rem"} />
+          </div>
           <div
             className={`${styles.cardContent} ${styles.verticalCardContent}`}
           >
             <img
-              onClick={openModal} // regarding comment at pokemonTypeBadge.module, isolate this click from the main container
               src={imgUrl}
               alt={pokemon.name}
               className={styles.verticalCardContent__image}
             />
 
-            {PokemonCharacteristics(pokemon, openPokemonTypeModal)}
+            {renderPokemonCharacteristics(pokemon, openPokemonTypeModal)}
           </div>
         </div>
       );
@@ -96,7 +96,7 @@ export const CardContent = ({
   return <>{renderCardContent()}</>;
 };
 
-const PokemonCharacteristics = (
+export const renderPokemonCharacteristics = (
   pokemon: PokemonObj,
   openPokemonTypeModal?: ((a: boolean) => void) | undefined
 ) => {

@@ -25,7 +25,7 @@
 			gap: 8px;
 			width: 100%;
 			overflow-x: scroll;
-      list-style-type: none;
+			list-style-type: none;
 		}
 
 		&__pokemonTypes::-webkit-scrollbar {
@@ -57,7 +57,6 @@
 	}
 }
 
-/* On screens that are 992px or less, set the background color to blue */
 @media screen and (min-width: 992px) {
 	.searchBar {
 		margin: 2rem 7rem;

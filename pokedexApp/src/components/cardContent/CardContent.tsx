@@ -4,6 +4,7 @@ import { PokemonBadgeType } from '../';
 import styles from './cardContent.module.scss';
 import { BiHeart, BiSolidHeart, BiInfoCircle } from 'react-icons/bi';
 import { getUserInfo } from '../../utils';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 type CardContentProps = {
 	type: CardType;
@@ -73,8 +74,19 @@ export const CardContent = ({
 		} else {
 			return (
 				<div className={styles.cardContent}>
+					<ReactTooltip
+						id={`pokemon-tooltip-${pokemon.id}`}
+						place='top-end'
+						variant='info'
+						content='Press here to get more information'
+					/>
+
 					<div className={styles.cardContent__favorite}>{renderFav()}</div>
-					<div className={styles.cardContent__info} onClick={openModal}>
+					<div
+						className={styles.cardContent__info}
+						onClick={openModal}
+						data-tooltip-id={`pokemon-tooltip-${pokemon.id}`}
+					>
 						<BiInfoCircle size={'1.5rem'} />
 					</div>
 					<div

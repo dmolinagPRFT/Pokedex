@@ -14,9 +14,9 @@ import {
 import styles from './pokemonList.module.scss';
 import { useState } from 'react';
 import { Button, Card, CardContent, PokemonModal } from '../../../components';
-import {} from '../../../utils';
 import _ from 'lodash';
 import { PokemonTypeModal } from '../../../components/pokemonTypeModal/PokemonTypeModal';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 interface PokemonListProp {
 	page: number;

@@ -1,6 +1,5 @@
 @import '../../css/variables/fontSizes.scss';
-
-
+@import '../../css/variables/colors.scss';
 
 .container {
 	display: flex;
@@ -23,23 +22,16 @@
 	&__spinner {
 		width: 20px;
 		height: 17px;
-		border: 8px solid #f3f3f3; /* Light grey */
-		border-top: 8px solid #383636; /* Black */
+		border: 8px solid $light-gray;
+		border-top: 8px solid $light-black;
 		border-radius: 50%;
 		animation: spinner 1.5s linear infinite;
 	}
 }
 
-.labelInput{
-  display: grid;
+.labelInput {
+	display: grid;
 	grid-template-columns: 1fr 3fr;
-}
-
-/* On screens that are 992px or less, set the background color to blue */
-@media screen and (min-width: 992px) {
-	// .container {
-	// 	width: 30%;
-	// }
 }
 
 @keyframes spinner {

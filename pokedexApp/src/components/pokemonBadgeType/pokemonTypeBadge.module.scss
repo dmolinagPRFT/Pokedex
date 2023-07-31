@@ -1,25 +1,25 @@
-@import "../../css/variables/colors.scss";
-@import "../../css/variables/fontSizes.scss";
+@import '../../css/variables/colors.scss';
+@import '../../css/variables/fontSizes.scss';
 
 .badge {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.5rem;
-  flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.25rem 0.5rem;
+	border-radius: 0.5rem;
+	flex-shrink: 0;
 
-  font-size: $size-xs;
-  line-height: 150%;
-  font-weight: $text;
-  text-transform: capitalize;
-  color: $white;
-  border: 1px solid $white;
-  text-shadow: 2px 2px 4px $black;
-  cursor: pointer; // good oportunity to implement a modal for the category only aside for the pokemon
+	font-size: $size-xs;
+	line-height: 150%;
+	font-weight: $text;
+	text-transform: capitalize;
+	color: $white;
+	border: 1px solid $white;
+	text-shadow: 2px 2px 4px $black;
+	cursor: pointer;
 
-  img {
-    width: 1rem;
-    height: 1rem;
-  }
+	img {
+		width: 1rem;
+		height: 1rem;
+	}
 }

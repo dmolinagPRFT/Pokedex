@@ -4,6 +4,7 @@ import { LoadingSpinner, Layout, Toast } from './components';
 import 'react-toastify/dist/ReactToastify.css';
 import { MainPage, UserPage } from './containers';
 import { Routes, Route } from 'react-router-dom';
+import 'react-tooltip/dist/react-tooltip.css'
 
 const MAX_POKEMON = 150;
 

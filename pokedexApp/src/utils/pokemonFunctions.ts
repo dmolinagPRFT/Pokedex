@@ -1,5 +1,5 @@
-import { PokemonType, pokemonTypes } from '../pokemonTypes';
-import { PokemonObj } from '../types/Pokemon';
+import { PokemonObj, PokemonType } from '../types/Pokemon';
+import { pokemonTypes } from './constants';
 
 export const getPokemonColor = (pokemon: PokemonObj | null): PokemonType => {
 	return pokemonTypes.filter(

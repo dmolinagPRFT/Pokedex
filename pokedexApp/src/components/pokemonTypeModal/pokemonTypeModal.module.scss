@@ -1,0 +1,36 @@
+@import '../../css/variables/colors.scss';
+
+.modal {
+	box-shadow: 0 8px 20px rgba(0 0 0 / 0.1);
+	border-radius: 6px;
+	background: rgba(0 0 0 / 0.5);
+	padding: 10px;
+	width: 100%;
+	color: $white;
+	height: 60%;
+
+	display: flex;
+	flex-direction: row;
+	gap: 15px;
+	justify-content: center;
+
+	&__types {
+		display: flex;
+		flex-direction: column;
+		color: $white;
+		gap: 5px;
+		border: 1px solid $white;
+		padding: 10px;
+		border-radius: 10px;
+
+		&__title {
+			text-align: center;
+		}
+
+		&__type {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+	}
+}

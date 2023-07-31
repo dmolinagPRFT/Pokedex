@@ -1,9 +1,8 @@
 import React from "react";
-import { pokemonTypes } from "../../../pokemonTypes";
 import { Button, PokemonBadgeType } from "../../";
 import styles from "../searchBar.module.scss";
 import { useListPokemon, useListPokemonByType } from "../../../customHooks";
-import { POKEMONS_PER_PAGE } from "../../../utils";
+import { POKEMONS_PER_PAGE, pokemonTypes } from "../../../utils";
 
 interface SearchBarProp {
   setPage: (page: number) => void;

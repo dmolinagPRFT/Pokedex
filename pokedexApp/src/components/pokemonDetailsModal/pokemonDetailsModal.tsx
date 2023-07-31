@@ -1,7 +1,7 @@
 import { PokemonObj } from "../../types/Pokemon";
 import { formatPokemonId } from "../../utils";
 import { PokemonBadgeType } from "../pokemonBadgeType/PokemonBadgeType";
-import styles from "./pokemonModal.module.scss";
+import styles from "./pokemonDetailsModal.module.scss";
 import { Dialog, Meter, Modal } from "react-aria-components";
 
 type PokemonModalProps = {

@@ -1,4 +1,3 @@
-import { pokemonTypes } from "../../pokemonTypes";
 import styles from "./pokemonTypeBadge.module.scss";
 import bug from "../../assets/pokemonTypes/bug.svg";
 import dark from "../../assets/pokemonTypes/dark.svg";
@@ -19,6 +18,7 @@ import rock from "../../assets/pokemonTypes/rock.svg";
 import steel from "../../assets/pokemonTypes/steel.svg";
 import water from "../../assets/pokemonTypes/water.svg";
 import { Button } from "../";
+import { pokemonTypes } from "../../utils";
 
 type PokemonTypeProps = {
   type: string;

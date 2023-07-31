@@ -2,9 +2,8 @@ import './App.scss';
 import { useListPokemon, useGetPokemon } from './customHooks';
 import { LoadingSpinner, Layout, Toast } from './components';
 import 'react-toastify/dist/ReactToastify.css';
-import { MainPage } from './containers';
+import { MainPage, UserPage } from './containers';
 import { Routes, Route } from 'react-router-dom';
-import { UserPage } from './containers/user/UserPage';
 
 const MAX_POKEMON = 150;
 

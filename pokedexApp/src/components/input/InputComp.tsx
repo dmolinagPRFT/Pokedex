@@ -2,7 +2,7 @@ import { TextField, Input } from 'react-aria-components';
 
 import styles from './input.module.scss';
 
-type Props = {
+export interface InputCompProps {
 	onChange: (e: string) => void;
 	label?: string;
 	isRequired?: boolean;
@@ -10,9 +10,9 @@ type Props = {
 	tabIndex?: number;
 	loading?: boolean;
 	value?: string;
-};
+}
 
-export const InputComp = ({ disabled = false, ...props }: Props) => {
+export const InputComp = ({ disabled = false, ...props }: InputCompProps) => {
 	const mClassname = props.label ? styles.labelInput : '';
 
 	return (
@@ -26,8 +26,9 @@ export const InputComp = ({ disabled = false, ...props }: Props) => {
 				onChange={(e) => props.onChange(e.target.value)}
 				placeholder={props.label}
 				value={props.value}
+        data-testid={props.label}
 			/>
-			{props.loading && <div className={styles.container__spinner}></div>}
+			{props.loading && <div className={styles.container__spinner} data-testid='spinner'></div>}
 		</TextField>
 	);
 };

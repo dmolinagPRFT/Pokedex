@@ -14,7 +14,7 @@ const renderComp = (props = defaultProps) => {
 	render(<InputComp {...props} />);
 };
 
-describe('ResetAndSaveButtonsFooter', () => {
+describe('Input component', () => {
 	it('should render and test input component', async () => {
 		renderComp();
 

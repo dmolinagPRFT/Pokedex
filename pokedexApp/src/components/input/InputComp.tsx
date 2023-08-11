@@ -26,7 +26,7 @@ export const InputComp = ({ disabled = false, ...props }: InputCompProps) => {
 				onChange={(e) => props.onChange(e.target.value)}
 				placeholder={props.label}
 				value={props.value}
-        data-testid={props.label}
+        data-testid={'Search by name'}
 			/>
 			{props.loading && <div className={styles.container__spinner} data-testid='spinner'></div>}
 		</TextField>

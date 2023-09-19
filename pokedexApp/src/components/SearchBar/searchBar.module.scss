@@ -28,6 +28,14 @@
 			list-style-type: none;
 		}
 
+		&__pokemonTypesBadge {
+			transition: opacity 0.8s;
+		}
+
+		&__pokemonTypesBadge:hover {
+			opacity: 0.6;
+		}
+
 		&__pokemonTypes::-webkit-scrollbar {
 			width: 1em;
 		}

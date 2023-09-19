@@ -1,133 +1,144 @@
-@import "../../css/variables/colors.scss";
-@import "../../css/variables/fontSizes.scss";
+@import '../../css/variables/colors.scss';
+@import '../../css/variables/fontSizes.scss';
 
 .cardContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	position: relative;
 
-  &__favorite {
-    position: absolute;
-    top: 5px;
-    right: 30px;
-    color: $red;
-    z-index: 5;
-    cursor: pointer;
-  }
+	&__favorite {
+		position: absolute;
+		top: 5px;
+		right: 30px;
+		color: $red;
+		z-index: 5;
+		cursor: pointer;
+	}
 
-  &__info {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    color: $white;
-    z-index: 5;
-    cursor: pointer;
-  }
+	&__info {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		color: $white;
+		z-index: 5;
+		cursor: pointer;
+		transition: color 2s;
+	}
 
-  &__pokemonInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	&__info:hover {
+		color: $gray;
+	}
 
-    &__number {
-      color: $white;
-      font-size: $size-md;
-      font-weight: $text-bold;
-      text-shadow: 2px 2px 4px $black;
-    }
+	&__pokemonInfo {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 
-    &__name {
-      color: $white;
-      font-size: $size-lg;
-      font-weight: $text;
-      text-transform: capitalize;
-      text-shadow: 2px 2px 4px $black;
-    }
-  }
+		&__number {
+			color: $white;
+			font-size: $size-md;
+			font-weight: $text-bold;
+			text-shadow: 2px 2px 4px $black;
+		}
+
+		&__name {
+			color: $white;
+			font-size: $size-lg;
+			font-weight: $text;
+			text-transform: capitalize;
+			text-shadow: 2px 2px 4px $black;
+		}
+	}
 }
 
 .horizontalCardContent {
-  margin: 1rem;
+	margin: 1rem;
 
-  &__pokemonInfo {
-    gap: 1rem;
+	&__pokemonInfo {
+		gap: 1rem;
 
-    &__badgeList {
-      display: flex;
-      flex-direction: row;
-      gap: 0.5rem;
-    }
-  }
+		&__badgeList {
+			display: flex;
+			flex-direction: row;
+			gap: 0.5rem;
+		}
+	}
 
-  &__image {
-    width: 50%;
-    height: 50%;
-  }
+	&__image {
+		width: 50%;
+		height: 50%;
+	}
 }
 
 .verticalCardContent {
-  padding: 1rem;
+	padding: 1rem;
 
-  &__pokemonInfo {
-    gap: 0.3rem;
-    user-select: none;
-  }
+	&__pokemonInfo {
+		gap: 0.3rem;
+		user-select: none;
+	}
 
-  &__image {
-    width: 80%;
-    height: 80%;
-  }
+	&__image {
+		width: 80%;
+		height: 80%;
+		transition: width 1s, height 1s;
+	}
+
+	&__image:hover {
+		width: 90%;
+		height: 90%;
+	}
 }
 
 .cardContent__badgeList {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 }
 
 .pokemon__characteristics {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 3rem;
-  color: $white;
-  font-size: $size-sm;
-  font-weight: $text;
-  text-shadow: 2px 2px 4px $black;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 3rem;
+	color: $white;
+	font-size: $size-sm;
+	font-weight: $text;
+	text-shadow: 2px 2px 4px $black;
 
-  .characteristic {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	.characteristic {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 
-    .value {
-      font-weight: $text-bold;
-    }
-  }
+		.value {
+			font-weight: $text-bold;
+		}
+	}
 }
 
 @media screen and (min-width: 700px) {
-  .horizontalCardContent {
-    flex-direction: row;
-    margin: 2rem;
+	.horizontalCardContent {
+		flex-direction: row;
+		margin: 2rem;
 
-    &__pokemonInfo {
-      &__badgeList {
-        flex-direction: row;
-      }
-    }
+		&__pokemonInfo {
+			&__badgeList {
+				flex-direction: row;
+			}
+		}
 
-    &__image {
-      width: 40%;
-      height: 40%;
-    }
-  }
+		&__image {
+			width: 40%;
+			height: 40%;
+		}
+	}
 
-  .cardContent__badgeList {
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
-  }
+	.cardContent__badgeList {
+		display: flex;
+		flex-direction: row;
+		gap: 0.5rem;
+	}
 }

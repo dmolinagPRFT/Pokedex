@@ -15,7 +15,8 @@ type Props = {
 	bgColor?: string;
 	name?: string;
 	textColor?: string;
-  type?: "button" | "submit" | "reset" | undefined;
+	type?: 'button' | 'submit' | 'reset' | undefined;
+	addClassname?: string;
 };
 
 export const Button = ({
@@ -23,12 +24,14 @@ export const Button = ({
 	size = 'md',
 	disabled = false,
 	textColor,
-  type = 'button',
+	type = 'button',
 	...props
 }: Props) => {
 	let ref = React.useRef(null);
 
-	const className = `${getSizeClass(size)} ${getStyleClass(buttonStyle)}`;
+	const className = `${getSizeClass(size)} ${getStyleClass(buttonStyle)} ${
+		props.addClassname && props.addClassname
+	}`;
 
 	return (
 		<button
@@ -40,7 +43,7 @@ export const Button = ({
 			tabIndex={props.tabIndex}
 			style={{ background: props.bgColor, color: textColor && textColor }}
 			ref={ref}
-      type={type}
+			type={type}
 		>
 			{props.children}
 		</button>

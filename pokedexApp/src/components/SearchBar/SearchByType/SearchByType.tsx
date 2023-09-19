@@ -39,6 +39,7 @@ export const SearchByType = ({ setPage }: SearchBarProp) => {
 								tabIndex={false}
 								button={true}
 								handleClick={onSearchByType}
+								addClassname={styles.searchBar__searchByType__pokemonTypesBadge}
 							/>
 						</li>
 					);

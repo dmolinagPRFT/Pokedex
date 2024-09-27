@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { PokemonListProvider, ToastProvider } from './utils';
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
+import { SpinnerProvider } from './utils/loadingContext';
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
@@ -14,7 +15,9 @@ root.render(
 		<BrowserRouter>
 			<PokemonListProvider>
 				<ToastProvider>
-					<App />
+					<SpinnerProvider>
+						<App />
+					</SpinnerProvider>
 				</ToastProvider>
 			</PokemonListProvider>
 		</BrowserRouter>

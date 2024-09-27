@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { fetchPokemon } from '../api/fetchPokemon';
 import { PokemonObj } from '../types/Pokemon';
 import { usePokemonsListContext, useToastContext } from '../utils';
+import { useSpinnerContext } from '../utils/loadingContext';
 
 export const INITIAL_POKEMON: PokemonObj = {
 	id: 0,
@@ -14,9 +15,10 @@ export const INITIAL_POKEMON: PokemonObj = {
 
 export function useGetPokemon(pokemon: number | string, initialRender = true) {
 	const { showToast } = useToastContext();
+	const { showSpinner } = useSpinnerContext();
+
 	const { definePokemonList } = usePokemonsListContext();
 
-	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [randomPokemon, setRandomPokemon] =
 		useState<PokemonObj>(INITIAL_POKEMON);
 
@@ -26,9 +28,9 @@ export function useGetPokemon(pokemon: number | string, initialRender = true) {
 		if (!retrievedPokemon.error) {
 			let newPokemonList = [retrievedPokemon.data];
 			definePokemonList(newPokemonList, '');
-			setIsLoading(false);
+			showSpinner(false);
 		} else {
-			setIsLoading(false);
+			showSpinner(false);
 			showToast({
 				isDisplay: true,
 				message: 'Pokemon not found',
@@ -45,11 +47,11 @@ export function useGetPokemon(pokemon: number | string, initialRender = true) {
 
 				if (!retrievedPokemon.error) {
 					setRandomPokemon(retrievedPokemon.data);
-					setIsLoading(false);
+					showSpinner(false);
 				} else {
 					retrievedPokemon = INITIAL_POKEMON;
 					setRandomPokemon(retrievedPokemon);
-					setIsLoading(false);
+					showSpinner(false);
 					showToast({
 						isDisplay: true,
 						message: 'Error retrieving Pokemon',
@@ -60,5 +62,5 @@ export function useGetPokemon(pokemon: number | string, initialRender = true) {
 		}
 	}, []);
 
-	return { randomPokemon, isLoading, queryPokemon };
+	return { randomPokemon, queryPokemon };
 }

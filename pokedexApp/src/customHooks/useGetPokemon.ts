@@ -16,28 +16,10 @@ export const INITIAL_POKEMON: PokemonObj = {
 export function useGetPokemon(pokemon: number | string, initialRender = true) {
 	const { showToast } = useToastContext();
 	const { showSpinner } = useSpinnerContext();
-
 	const { definePokemonList } = usePokemonsListContext();
 
 	const [randomPokemon, setRandomPokemon] =
 		useState<PokemonObj>(INITIAL_POKEMON);
-
-	const queryPokemon = async (pokemon: string) => {
-		let retrievedPokemon = await fetchPokemon(pokemon.toLowerCase());
-
-		if (!retrievedPokemon.error) {
-			let newPokemonList = [retrievedPokemon.data];
-			definePokemonList(newPokemonList, '');
-			showSpinner(false);
-		} else {
-			showSpinner(false);
-			showToast({
-				isDisplay: true,
-				message: 'Pokemon not found',
-				type: 'error',
-			});
-		}
-	};
 
 	useEffect(() => {
 		if (initialRender) {
@@ -61,6 +43,23 @@ export function useGetPokemon(pokemon: number | string, initialRender = true) {
 			})();
 		}
 	}, []);
+
+	const queryPokemon = async (pokemon: string) => {
+		let retrievedPokemon = await fetchPokemon(pokemon.toLowerCase());
+
+		if (!retrievedPokemon.error) {
+			let newPokemonList = [retrievedPokemon.data];
+			definePokemonList(newPokemonList, '');
+			showSpinner(false);
+		} else {
+			showSpinner(false);
+			showToast({
+				isDisplay: true,
+				message: 'Pokemon not found',
+				type: 'error',
+			});
+		}
+	};
 
 	return { randomPokemon, queryPokemon };
 }

@@ -1,6 +1,5 @@
 export const fetchPokemonByType = async (type: string, pokemonAmount = 9) => {
-	// const URL = `https://pokeapi.co/api/v2/type/${type}`;
-	const URL = `http://localhost:3000/pokemons/${type}`;
+	const URL = `http://localhost:3000/pokemons/type/${type}`;
 
 	try {
 		const response = await fetch(URL);

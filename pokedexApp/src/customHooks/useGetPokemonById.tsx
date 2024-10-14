@@ -1,32 +1,31 @@
-import { useState } from 'react';
-import { useToastContext } from '../utils';
-import { fetchPokemonById } from '../api/fetchPokemonListById';
-import { PokemonObj } from '../types/Pokemon';
+import { useState } from "react";
+import { useToastContext } from "../utils";
+import { fetchPokemonById } from "../api/fetchPokemonListById";
+import { PokemonObj } from "../types/Pokemon";
+import { useSpinnerContext } from "../utils/loadingContext";
 
 export function useGetPokemonById() {
-	const { showToast } = useToastContext();
+  const { showToast } = useToastContext();
+  const { showSpinner } = useSpinnerContext();
 
-	const [isLoading, setIsLoading] = useState<boolean>(true);
-	const [pokemonsArray, setPokemonsArray] = useState<PokemonObj[]>([]);
+  const [pokemonsArray, setPokemonsArray] = useState<PokemonObj[]>([]);
 
-	const queryPokemonsById = async (pokemonIds: number[]) => {
-		setIsLoading(true);
+  const queryPokemonsById = async (pokemonIds: number[]) => {
+    const response = await fetchPokemonById(pokemonIds);
 
-		const response = await fetchPokemonById(pokemonIds);
+    if (!response.error) {
+      setPokemonsArray(response.pokemonList);
+      showSpinner(false);
+    } else {
+      setPokemonsArray([]);
+      showSpinner(false);
+      showToast({
+        isDisplay: true,
+        message: "Error retrieving Pokemon's list by id",
+        type: "error",
+      });
+    }
+  };
 
-		if (!response.error) {
-			setPokemonsArray(response.pokemonList);
-			setIsLoading(false);
-		} else {
-			setPokemonsArray([]);
-			setIsLoading(false);
-			showToast({
-				isDisplay: true,
-				message: "Error retrieving Pokemon's list by id",
-				type: 'error',
-			});
-		}
-	};
-
-	return { isLoading, queryPokemonsById, pokemonsArray };
+  return { queryPokemonsById, pokemonsArray };
 }

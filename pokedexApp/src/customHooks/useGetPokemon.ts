@@ -29,11 +29,9 @@ export function useGetPokemon(pokemon: number | string, initialRender = true) {
 
 				if (!retrievedPokemon.error) {
 					setRandomPokemon(retrievedPokemon.data);
-					showSpinner(false);
 				} else {
 					retrievedPokemon = INITIAL_POKEMON;
 					setRandomPokemon(retrievedPokemon);
-					showSpinner(false);
 					showToast({
 						isDisplay: true,
 						message: 'Error retrieving Pokemon',

@@ -8,6 +8,8 @@ export function useListPokemon() {
 	const { showSpinner } = useSpinnerContext();
 
 	const queryPokemons = async (page: number, isFirstPageOnly = false) => {
+		showSpinner(true);
+
 		const response = await fetchPokemonList(page);
 		if (!response.error) {
 			let newPokemonList = !isFirstPageOnly

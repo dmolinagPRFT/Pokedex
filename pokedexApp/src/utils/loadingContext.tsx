@@ -11,7 +11,7 @@ const spinnerContext = React.createContext<SpinnerContext>({
 });
 
 export const SpinnerProvider = ({ children }: any) => {
-	const [isLoading, setIsLoading] = React.useState<boolean>(true);
+	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
 	const showSpinner = (isLoading: boolean) => {
 		setIsLoading(isLoading);

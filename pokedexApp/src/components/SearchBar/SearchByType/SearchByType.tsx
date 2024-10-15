@@ -20,7 +20,7 @@ export const SearchByType = ({ setPage }: SearchBarProp) => {
 				setPage(1);
 				queryPokemonsByType(typeName, 1);
 			} else if (!typeName) {
-				queryPokemons(0, true);
+				queryPokemons(1, true);
 			}
 		},
 		[queryPokemons, queryPokemonsByType, selectedType, setPage]

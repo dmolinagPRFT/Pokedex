@@ -1,4 +1,4 @@
-import { User } from '../containers/user/UserPage';
+import { User } from "../containers/user/createUser/CreateUser";
 
 const FAVORITE_POKEMONS = 'favorites';
 const USER_INFO = 'user';

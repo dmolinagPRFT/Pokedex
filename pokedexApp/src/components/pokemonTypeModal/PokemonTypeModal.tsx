@@ -42,7 +42,7 @@ export const PokemonTypeModal = ({
 							</div>
 						</div>
 
-						{PokemonBadgeTypeComp('String against', pokemonType.strongAgainst)}
+						{PokemonBadgeTypeComp('Strong against', pokemonType.strongAgainst)}
 
 						{PokemonBadgeTypeComp('Weak against', pokemonType.weakAgainst)}
 

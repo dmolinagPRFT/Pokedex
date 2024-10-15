@@ -1,17 +1,17 @@
-export const fetchPokemonByType = async (type: string, pokemonAmount = 9) => {
-	// const URL = `http://localhost:3000/pokemons/type/${type}`;
-  const URL = `https://pokeapi.co/api/v2/type/${type}`;
-  // const URL = `http://localhost:3000/pokemons/${type}`;
+import { POKEMONS_PER_PAGE } from '../utils';
 
-  try {
-    const response = await fetch(URL);
-    const data = await response.json();
+export const fetchPokemonByType = async (type: string, page: number = 9) => {
+	const URL = `http://localhost:3000/pokemons/type/${type}?page=${page}&limit=${POKEMONS_PER_PAGE}`;
 
-    return { pokemonList: data.pokemonList, error: false };
-  } catch {
-    return {
-      pokemonList: [],
-      error: false,
-    };
-  }
+	try {
+		const response = await fetch(URL);
+		const data = await response.json();
+
+		return { pokemonList: data.pokemonList, error: false };
+	} catch {
+		return {
+			pokemonList: [],
+			error: false,
+		};
+	}
 };

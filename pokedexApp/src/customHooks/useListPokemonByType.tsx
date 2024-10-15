@@ -10,11 +10,11 @@ export function useListPokemonByType() {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const queryPokemonsByType = async (type: string, pokemonAmount: number) => {
+  const queryPokemonsByType = async (type: string, page: number) => {
     setIsLoading(true);
     showSpinner(true);
 
-    const response = await fetchPokemonByType(type, pokemonAmount);
+    const response = await fetchPokemonByType(type, page);
 
     if (!response.error) {
       definePokemonList(response.pokemonList, type, true);

@@ -8,7 +8,6 @@ import { MAX_POKEMON } from '../../utils';
 export const MainPage = () => {
 	const randomNumber: number = Math.floor(Math.random() * MAX_POKEMON);
 	const { randomPokemon } = useGetPokemon(randomNumber);
-
 	const [page, setPage] = useState<number>(1);
 
 	return (

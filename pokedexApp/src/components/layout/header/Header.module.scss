@@ -5,4 +5,10 @@
   height: 10%;
   gap: 10px;
   justify-content: space-between;
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px
+  }
 }

@@ -21,14 +21,14 @@ export const InputComp = ({ disabled = false, ...props }: InputCompProps) => {
 			className={`${mClassname} ${styles.container}`}
 			aria-label='search term'
 		>
-			{props.label && <label>{props.label}:</label>}
 			<Input
 				onChange={(e) => props.onChange(e.target.value)}
-				placeholder={props.label}
+				placeholder={'Name'}
 				value={props.value}
-        data-testid={'Search by name'}
 			/>
-			{props.loading && <div className={styles.container__spinner} data-testid='spinner'></div>}
+			{props.loading && (
+				<div className={styles.container__spinner} data-testid='spinner'></div>
+			)}
 		</TextField>
 	);
 };

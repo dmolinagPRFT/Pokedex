@@ -1,4 +1,4 @@
-import React from 'react';
+import { useCallback } from 'react';
 import { InputComp } from '../..';
 import styles from '../searchBar.module.scss';
 import { useDebounce } from '../../../customHooks';
@@ -6,9 +6,12 @@ import { useDebounce } from '../../../customHooks';
 export const SearchByName = () => {
 	const { queryByName, queryLoading } = useDebounce();
 
-	const handleSearch = (value: string) => {
-		queryByName(value);
-	};
+	const handleSearch = useCallback(
+		(value: string) => {
+			queryByName(value);
+		},
+		[queryByName]
+	);
 
 	return (
 		<section className={styles.searchBar}>

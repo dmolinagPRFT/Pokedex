@@ -11,7 +11,7 @@ import {
 	useListPokemonByType,
 } from '../../../customHooks';
 import styles from './pokemonList.module.scss';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Button, Card, CardContent, PokemonModal } from '../../../components';
 import _ from 'lodash';
 import { PokemonTypeModal } from '../../../components/pokemonTypeModal/PokemonTypeModal';
@@ -35,11 +35,15 @@ export const PokemonList = ({ page, setPage }: PokemonListProp) => {
 	const [favPokemons, setFavPokemons] = useState<number[]>(getFavoritePokemons);
 	const [pokemonTypeAgainst, setPokemonTypeAgainst] = useState<string>('');
 
+	useEffect(() => {
+		queryPokemons(page);
+	}, []);
+
 	const handleLoadMore = async () => {
 		const nextPage = page + 1;
 
 		if (!filtered) {
-			queryPokemons(page);
+			queryPokemons(nextPage);
 		} else {
 			queryPokemonsByType(pokemonType, nextPage);
 		}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Button, PokemonBadgeType } from '../../';
 import styles from '../searchBar.module.scss';
 import { useListPokemon, useListPokemonByType } from '../../../customHooks';
@@ -13,15 +13,18 @@ export const SearchByType = ({ setPage }: SearchBarProp) => {
 	const { queryPokemonsByType } = useListPokemonByType();
 	const { queryPokemons } = useListPokemon();
 
-	const onSearchByType = async (typeName: any) => {
-		setSelectedType(typeName);
-		if (typeName && typeName !== selectedType) {
-			setPage(1);
-			queryPokemonsByType(typeName, 1);
-		} else if (!typeName) {
-			queryPokemons(0, true);
-		}
-	};
+	const onSearchByType = useCallback(
+		async (typeName: any) => {
+			setSelectedType(typeName);
+			if (typeName && typeName !== selectedType) {
+				setPage(1);
+				queryPokemonsByType(typeName, 1);
+			} else if (!typeName) {
+				queryPokemons(0, true);
+			}
+		},
+		[queryPokemons, queryPokemonsByType, selectedType, setPage]
+	);
 
 	return (
 		<div className={styles.searchBar__searchByType}>

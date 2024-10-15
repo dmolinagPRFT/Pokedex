@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { fetchPokemon } from '../api/fetchPokemon';
 import { PokemonObj } from '../types/Pokemon';
 import { usePokemonsListContext, useToastContext } from '../utils';
-import { useSpinnerContext } from '../utils/loadingContext';
 
 export const INITIAL_POKEMON: PokemonObj = {
 	id: 0,
@@ -15,7 +14,6 @@ export const INITIAL_POKEMON: PokemonObj = {
 
 export function useGetPokemon(pokemon: number | string, initialRender = true) {
 	const { showToast } = useToastContext();
-	const { showSpinner } = useSpinnerContext();
 	const { definePokemonList } = usePokemonsListContext();
 
 	const [randomPokemon, setRandomPokemon] =
@@ -48,9 +46,7 @@ export function useGetPokemon(pokemon: number | string, initialRender = true) {
 		if (!retrievedPokemon.error) {
 			let newPokemonList = [retrievedPokemon.data];
 			definePokemonList(newPokemonList, '');
-			showSpinner(false);
 		} else {
-			showSpinner(false);
 			showToast({
 				isDisplay: true,
 				message: 'Pokemon not found',

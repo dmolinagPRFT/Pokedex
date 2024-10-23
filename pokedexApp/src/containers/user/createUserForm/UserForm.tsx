@@ -41,14 +41,13 @@ export const UserForm = () => {
 				)}
 			/>
 			<Controller
-				name='password'
+				name='email'
 				control={control}
 				render={({ field }) => (
 					<InputComp
-						label={'Password'}
-            type='password'
+						label={'Email'}
 						{...field}
-						onChangeValue={(e) => setValue('password', e)}
+						onChangeValue={(e) => setValue('email', e)}
 					/>
 				)}
 			/>

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useToastContext } from "../utils";
-import { fetchPokemonById } from "../api/fetchPokemonListById";
 import { PokemonObj } from "../types/Pokemon";
 import { useSpinnerContext } from "../utils/loadingContext";
+import { fetchPokemonsById } from "../api/pokemon";
 
 export function useGetPokemonById() {
   const { showToast } = useToastContext();
@@ -11,7 +11,7 @@ export function useGetPokemonById() {
   const [pokemonsArray, setPokemonsArray] = useState<PokemonObj[]>([]);
 
   const queryPokemonsById = async (pokemonIds: number[]) => {
-    const response = await fetchPokemonById(pokemonIds);
+    const response = await fetchPokemonsById(pokemonIds);
 
     if (!response.error) {
       setPokemonsArray(response.pokemonList);

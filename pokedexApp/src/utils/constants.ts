@@ -2,6 +2,11 @@ import { PokemonType, PokemonTypesAgainstType } from '../types/Pokemon';
 
 export const POKEMONS_PER_PAGE = 9;
 export const MAX_POKEMON = 150;
+export const URL = 'http://localhost:3000/';
+export const POKEMONS_PATH = 'pokemons';
+export const USERS_PATH = 'users';
+
+
 
 export const pokemonTypes: PokemonType[] = [
 	{ name: 'bug', color: '#7bcf00' },

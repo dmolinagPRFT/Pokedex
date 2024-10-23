@@ -19,7 +19,7 @@ export const SearchByName = () => {
 				<h2 className={styles.searchBar__searchByName__title}>
 					Search by name
 				</h2>
-				<InputComp onChange={handleSearch} loading={queryLoading} />
+				<InputComp onChangeValue={handleSearch} loading={queryLoading} />
 			</div>
 		</section>
 	);

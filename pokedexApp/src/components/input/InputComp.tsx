@@ -1,18 +1,23 @@
-import { TextField, Input } from 'react-aria-components';
+import { TextField, Input, InputProps } from 'react-aria-components';
 
 import styles from './input.module.scss';
 
 export interface InputCompProps {
-	onChange: (e: string) => void;
+	onChangeValue: (e: string) => void;
 	label?: string;
 	isRequired?: boolean;
 	disabled?: boolean;
 	tabIndex?: number;
 	loading?: boolean;
 	value?: string;
+	type?: string;
 }
 
-export const InputComp = ({ disabled = false, ...props }: InputCompProps) => {
+export const InputComp = ({
+	disabled = false,
+	type,
+	...props
+}: InputCompProps & Partial<InputProps>) => {
 	const mClassname = props.label ? styles.labelInput : '';
 
 	return (
@@ -23,9 +28,10 @@ export const InputComp = ({ disabled = false, ...props }: InputCompProps) => {
 		>
 			{props.label && <label>{props.label}:</label>}
 			<Input
-				onChange={(e) => props.onChange(e.target.value)}
+				onChange={(e) => props.onChangeValue(e.target.value)}
 				placeholder={props.label}
 				value={props.value}
+				type={type ?? 'text'}
 			/>
 			{props.loading && (
 				<div className={styles.container__spinner} data-testid='spinner'></div>

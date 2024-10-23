@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { usePokemonsListContext, useToastContext } from "../utils";
-import { fetchPokemonByType } from "../api/fetchPokemonByType";
 import { useSpinnerContext } from "../utils/loadingContext";
+import { fetchPokemonByType } from "../api/pokemon";
 
 export function useListPokemonByType() {
   const { definePokemonList } = usePokemonsListContext();

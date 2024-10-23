@@ -3,7 +3,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { Button } from '../../../components';
 import { UserForm } from './UserForm';
 import styles from './createUser.module.scss';
-import { useToastContext, getUserInfo, setUserInfo } from '../../../utils';
+import { getUserInfo, setUserInfo } from '../../../utils';
+import { useCreateUser } from '../../../customHooks/useCreateUser';
 
 export interface User {
 	username: string;
@@ -22,7 +23,7 @@ const INITIAL_FORM_VALUES: User = {
 };
 
 export const CreateUser = () => {
-	const { showToast } = useToastContext();
+	const { createUser } = useCreateUser();
 
 	const methods = useForm({
 		defaultValues: INITIAL_FORM_VALUES,
@@ -31,13 +32,9 @@ export const CreateUser = () => {
 
 	const { handleSubmit, reset } = methods;
 
-	const onSubmit = (values: User) => {
-		setUserInfo(values);
-		showToast({
-			isDisplay: true,
-			message: 'Log in successfully',
-			type: 'success',
-		});
+	const onSubmit = (user: User) => {
+		setUserInfo(user);
+		createUser(user);
 	};
 
 	useEffect(() => {
@@ -58,7 +55,11 @@ export const CreateUser = () => {
 		<FormProvider {...methods}>
 			<form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
 				<UserForm />
-				<Button buttonStyle='primary' type='submit' addClassname={styles.button}>
+				<Button
+					buttonStyle='primary'
+					type='submit'
+					addClassname={styles.button}
+				>
 					Save
 				</Button>
 			</form>

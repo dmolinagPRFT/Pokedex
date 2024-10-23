@@ -1,4 +1,4 @@
-import { fetchPokemonList } from '../api/fetchPokemonList';
+import { fetchPokemonsList } from '../api/pokemon';
 import { usePokemonsListContext, useToastContext } from '../utils';
 import { useSpinnerContext } from '../utils/loadingContext';
 
@@ -10,7 +10,7 @@ export function useListPokemon() {
 	const queryPokemons = async (page: number, isFirstPageOnly = false) => {
 		showSpinner(true);
 
-		const response = await fetchPokemonList(page);
+		const response = await fetchPokemonsList(page);
 		if (!response.error) {
 			let newPokemonList = !isFirstPageOnly
 				? [...pokemonList.concat(response.pokemonList)]

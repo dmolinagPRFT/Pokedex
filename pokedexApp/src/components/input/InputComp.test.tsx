@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 const onChangeSpy = jest.fn();
 const defaultProps = {
-	onChange: onChangeSpy,
+	onChangeValue: onChangeSpy,
 	label: 'Search by name',
 	loading: false,
 	value: '',

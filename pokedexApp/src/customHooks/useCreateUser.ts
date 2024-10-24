@@ -1,9 +1,11 @@
 import { useToastContext } from '../utils';
 import { User } from '../containers/user/createUser/CreateUser';
 import { signIn } from '../api/user';
+import { useNavigate } from 'react-router-dom';
 
 export function useCreateUser() {
 	const { showToast } = useToastContext();
+	const navigate = useNavigate();
 
 	const createUser = async (user: User) => {
 		let userResponse = await signIn(user);
@@ -14,10 +16,11 @@ export function useCreateUser() {
 				message: 'User created',
 				type: 'success',
 			});
+			navigate('/user');
 		} else {
 			showToast({
 				isDisplay: true,
-				message: 'Unable to create user',
+				message: userResponse.error,
 				type: 'error',
 			});
 		}

@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Button } from '../../../components';
-import { UserForm } from './UserForm';
-import styles from './createUser.module.scss';
+import styles from './CreateUser.module.scss';
 import { getUserInfo, setUserInfo } from '../../../utils';
 import { useCreateUser } from '../../../customHooks/useCreateUser';
+import { UserForm } from './createUserForm/UserForm';
 
 export interface User {
 	username: string;
@@ -29,13 +29,7 @@ export const CreateUser = () => {
 		defaultValues: INITIAL_FORM_VALUES,
 		mode: 'onSubmit',
 	});
-
 	const { handleSubmit, reset } = methods;
-
-	const onSubmit = (user: User) => {
-		setUserInfo(user);
-		createUser(user);
-	};
 
 	useEffect(() => {
 		const user: User | null = getUserInfo();
@@ -51,18 +45,26 @@ export const CreateUser = () => {
 		}
 	}, []);
 
+	const onSubmit = (user: User) => {
+		setUserInfo(user);
+		createUser(user);
+	};
+
 	return (
-		<FormProvider {...methods}>
-			<form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
-				<UserForm />
-				<Button
-					buttonStyle='primary'
-					type='submit'
-					addClassname={styles.button}
-				>
-					Save
-				</Button>
-			</form>
-		</FormProvider>
+		<div className={styles.userPage}>
+			<h2>Create User</h2>
+			<FormProvider {...methods}>
+				<form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
+					<UserForm />
+					<Button
+						buttonStyle='primary'
+						type='submit'
+						addClassname={styles.button}
+					>
+						Save
+					</Button>
+				</form>
+			</FormProvider>
+		</div>
 	);
 };

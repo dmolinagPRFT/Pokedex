@@ -30,13 +30,14 @@ export const Header = () => {
 	};
 
 	const renderUserButton = () => {
+    // return renderButton('signin', 'Sign in')
 		if (user && location.pathname === '/') {
 			return renderButton('user', 'User account');
 		} else if (!user && location.pathname === '/') {
 			return (
 				<div className={styles.buttons}>
-					{renderButton('user', 'Sign in')}
-					{renderButton('user', 'Sign up')}
+					{renderButton('signin', 'Sign in')}
+					{renderButton('signup', 'Sign up')}
 				</div>
 			);
 		} else if (user && location.pathname === '/user') {

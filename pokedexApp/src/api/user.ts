@@ -1,12 +1,8 @@
 import { User } from '../containers/user/createUser/CreateUser';
-import { INITIAL_POKEMON } from '../customHooks/useGetPokemon';
 import { URL, USERS_PATH } from '../utils';
 
 export const signIn = async (user: User) => {
 	const endpoint = `${URL}${USERS_PATH}/register`;
-
-	let data;
-	let error;
 
 	try {
 		const response = await fetch(endpoint, {
@@ -17,17 +13,17 @@ export const signIn = async (user: User) => {
 			body: JSON.stringify(user),
 		});
 
-		data = await response.json();
-		error = false;
+		const data = await response.json();
 
-		if (response.status !== 201) {
-			data = INITIAL_POKEMON;
-			error = data;
+		if (!response.ok) {
+			return { data: null, error: data.error };
 		}
-	} catch (err) {
-		data = INITIAL_POKEMON;
-		error = true;
-	}
 
-	return { data, error };
+		return { data, error: null };
+	} catch (err) {
+		return {
+			data: {},
+			error: err,
+		};
+	}
 };

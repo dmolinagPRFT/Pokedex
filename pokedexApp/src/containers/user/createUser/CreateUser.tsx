@@ -7,6 +7,7 @@ import { useCreateUser } from '../../../customHooks/useCreateUser';
 import { UserForm } from './createUserForm/UserForm';
 
 export interface User {
+	id: string;
 	username: string;
 	name: string;
 	lastname: string;
@@ -15,6 +16,7 @@ export interface User {
 }
 
 const INITIAL_FORM_VALUES: User = {
+	id: '',
 	name: '',
 	lastname: '',
 	username: '',
@@ -54,7 +56,10 @@ export const CreateUser = () => {
 		<div className={styles.container}>
 			<h2>Create User</h2>
 			<FormProvider {...methods}>
-				<form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
+				<form
+					onSubmit={handleSubmit(onSubmit)}
+					className={styles.formContainer}
+				>
 					<UserForm />
 					<Button
 						buttonStyle='primary'

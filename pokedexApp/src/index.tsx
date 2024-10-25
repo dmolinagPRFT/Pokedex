@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { PokemonListProvider, ToastProvider } from './utils';
+import { PokemonListProvider, ToastProvider, UserProvider } from './utils';
 import { BrowserRouter } from 'react-router-dom';
 import { SpinnerProvider } from './utils/loadingContext';
 
@@ -13,13 +13,15 @@ const root = ReactDOM.createRoot(
 root.render(
 	<React.StrictMode>
 		<BrowserRouter>
-			<PokemonListProvider>
-				<ToastProvider>
-					<SpinnerProvider>
-						<App />
-					</SpinnerProvider>
-				</ToastProvider>
-			</PokemonListProvider>
+			<UserProvider>
+				<PokemonListProvider>
+					<ToastProvider>
+						<SpinnerProvider>
+							<App />
+						</SpinnerProvider>
+					</ToastProvider>
+				</PokemonListProvider>
+			</UserProvider>
 		</BrowserRouter>
 	</React.StrictMode>
 );

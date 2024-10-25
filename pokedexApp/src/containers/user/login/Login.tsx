@@ -1,16 +1,18 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import styles from '../User.module.scss';
 import { useEffect } from 'react';
-import { getUserInfo } from '../../../utils';
+import { getUserInfo, useUserContext } from '../../../utils';
 import { LoginForm } from './LoginForm/LoginForm';
 import { Button } from '../../../components';
+import { login } from '../../../api/user';
+import { useNavigate } from 'react-router-dom';
 
 const INITIAL_FORM_VALUES: Login = {
 	username: '',
 	password: '',
 };
 
-interface Login {
+export interface Login {
 	username: string;
 	password: string;
 }
@@ -21,6 +23,8 @@ export const LoginView = () => {
 		mode: 'onSubmit',
 	});
 	const { handleSubmit, reset } = methods;
+	const navigate = useNavigate();
+	const { setUserInfo } = useUserContext();
 
 	useEffect(() => {
 		const user: Login | null = getUserInfo();
@@ -33,8 +37,15 @@ export const LoginView = () => {
 		}
 	}, []);
 
-	const onSubmit = (loginInfo: Login) => {
-		console.log(loginInfo);
+	const onSubmit = async (loginInfo: Login) => {
+		const { data } = await login(loginInfo);
+
+		if (!data) {
+			return;
+		}
+
+		setUserInfo(data.user, data.token);
+		navigate('/user');
 	};
 
 	return (

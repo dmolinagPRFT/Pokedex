@@ -3,3 +3,5 @@ export * from './pokemonsListContext';
 export * from './toastContext';
 export * from './constants';
 export * from './setGetLocalStorageInfo';
+export * from './UserContext';
+

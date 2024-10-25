@@ -1,3 +1,4 @@
+import { FavoriteList } from './listFavorites/FavoriteList';
 import styles from './UserPage.module.scss';
 
 export const UserPage = () => {
@@ -6,6 +7,7 @@ export const UserPage = () => {
 			<h2>User</h2>
 
 			{/* user preferences */}
+      <FavoriteList />
 		</div>
 	);
 };

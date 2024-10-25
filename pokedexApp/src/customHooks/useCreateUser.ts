@@ -17,6 +17,7 @@ export function useCreateUser() {
 				type: 'success',
 			});
 			navigate('/user');
+
 		} else {
 			showToast({
 				isDisplay: true,

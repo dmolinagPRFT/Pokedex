@@ -1,0 +1,22 @@
+@import './../../css/variables/colors.scss';
+
+.container {
+	display: flex;
+	flex-direction: column;
+	color: $white;
+	margin: 1rem;
+	align-items: center;
+	gap: 20px;
+	height: 79vh;
+
+	.formContainer {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		align-items: center;
+
+		.button {
+			width: fit-content;
+		}
+	}
+}

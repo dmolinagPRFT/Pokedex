@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Button } from '../../../components';
-import styles from './CreateUser.module.scss';
+import styles from '../User.module.scss';
 import { getUserInfo, setUserInfo } from '../../../utils';
 import { useCreateUser } from '../../../customHooks/useCreateUser';
 import { UserForm } from './createUserForm/UserForm';
@@ -51,17 +51,17 @@ export const CreateUser = () => {
 	};
 
 	return (
-		<div className={styles.userPage}>
+		<div className={styles.container}>
 			<h2>Create User</h2>
 			<FormProvider {...methods}>
-				<form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
+				<form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
 					<UserForm />
 					<Button
 						buttonStyle='primary'
 						type='submit'
 						addClassname={styles.button}
 					>
-						Save
+						Submit
 					</Button>
 				</form>
 			</FormProvider>

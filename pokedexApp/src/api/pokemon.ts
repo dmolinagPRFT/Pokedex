@@ -9,7 +9,9 @@ export const fetchPokemon = async (pokemon: string | number) => {
 	let error;
 
 	try {
-		const response = await fetch(endpoint);
+		const response = await fetch(endpoint, {
+			method: 'GET',
+		});
 		data = await response.json();
 		error = false;
 
@@ -28,7 +30,9 @@ export const fetchPokemon = async (pokemon: string | number) => {
 export const fetchPokemonsList = async (page: number) => {
 	try {
 		const endpoint = `${URL}${POKEMONS_PATH}?page=${page}&limit=${POKEMONS_PER_PAGE}`;
-		const response = await fetch(endpoint.toString());
+		const response = await fetch(endpoint, {
+			method: 'GET',
+		});
 		const data = await response.json();
 
 		const promises = data.results.map(
@@ -50,7 +54,9 @@ export const fetchPokemonByType = async (type: string, page: number = 9) => {
 	const endpoint = `${URL}${POKEMONS_PATH}/type/${type}?page=${page}&limit=${POKEMONS_PER_PAGE}`;
 
 	try {
-		const response = await fetch(endpoint);
+		const response = await fetch(endpoint, {
+			method: 'GET',
+		});
 		const data = await response.json();
 
 		return { pokemonList: data.pokemonList, error: false };

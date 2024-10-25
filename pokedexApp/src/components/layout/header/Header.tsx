@@ -30,36 +30,35 @@ export const Header = () => {
 	};
 
 	const renderUserButton = () => {
-    // return renderButton('signin', 'Sign in')
-		if (user && location.pathname === '/') {
-			return renderButton('user', 'User account');
-		} else if (!user && location.pathname === '/') {
+		// if (user && location.pathname === '/') {
+		// 	return renderButton('user', 'User account');
+		// } else if (!user && location.pathname === '/') {
 			return (
 				<div className={styles.buttons}>
 					{renderButton('signin', 'Sign in')}
 					{renderButton('signup', 'Sign up')}
 				</div>
 			);
-		} else if (user && location.pathname === '/user') {
-			return (
-				<Button
-					buttonStyle='primary'
-					onClick={() => {
-						clearLocalStorage();
-						navigate('/');
-						showToast({
-							isDisplay: true,
-							message: 'Log out successful',
-							type: 'success',
-						});
-					}}
-				>
-					Log out
-				</Button>
-			);
-		} else {
-			return null;
-		}
+		// } else if (user && location.pathname === '/user') {
+		// 	return (
+		// 		<Button
+		// 			buttonStyle='primary'
+		// 			onClick={() => {
+		// 				clearLocalStorage();
+		// 				navigate('/');
+		// 				showToast({
+		// 					isDisplay: true,
+		// 					message: 'Log out successful',
+		// 					type: 'success',
+		// 				});
+		// 			}}
+		// 		>
+		// 			Log out
+		// 		</Button>
+		// 	);
+		// } else {
+		// 	return null;
+		// }
 	};
 
 	return (

@@ -3,16 +3,18 @@ import {
 	useToastContext,
 	clearLocalStorage,
 	getUserInfo,
+	useUserContext,
 } from '../../../utils';
 import { Button } from '../../button/Button';
 import styles from './header.module.scss';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export const Header = () => {
-	const user = getUserInfo();
+	// const user = getUserInfo();
 	let location = useLocation();
 	const navigate = useNavigate();
 	const { showToast } = useToastContext();
+	const { user } = useUserContext();
 
 	const renderButton = (path: string, label: string) => {
 		return (
@@ -30,35 +32,35 @@ export const Header = () => {
 	};
 
 	const renderUserButton = () => {
-		// if (user && location.pathname === '/') {
-		// 	return renderButton('user', 'User account');
-		// } else if (!user && location.pathname === '/') {
+		if (user.id && location.pathname === '/') {
+			return renderButton('user', 'User account');
+		} else if (!user.id && location.pathname === '/') {
 			return (
 				<div className={styles.buttons}>
 					{renderButton('signin', 'Sign in')}
 					{renderButton('signup', 'Sign up')}
 				</div>
 			);
-		// } else if (user && location.pathname === '/user') {
-		// 	return (
-		// 		<Button
-		// 			buttonStyle='primary'
-		// 			onClick={() => {
-		// 				clearLocalStorage();
-		// 				navigate('/');
-		// 				showToast({
-		// 					isDisplay: true,
-		// 					message: 'Log out successful',
-		// 					type: 'success',
-		// 				});
-		// 			}}
-		// 		>
-		// 			Log out
-		// 		</Button>
-		// 	);
-		// } else {
-		// 	return null;
-		// }
+		} else if (user && location.pathname === '/user') {
+			return (
+				<Button
+					buttonStyle='primary'
+					onClick={() => {
+						// clearLocalStorage();
+						navigate('/');
+						showToast({
+							isDisplay: true,
+							message: 'Log out successful',
+							type: 'success',
+						});
+					}}
+				>
+					Log out
+				</Button>
+			);
+		} else {
+			return null;
+		}
 	};
 
 	return (

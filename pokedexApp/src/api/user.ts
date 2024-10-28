@@ -75,8 +75,43 @@ export const favoritePokemon = async (
 				authorization: token,
 			},
 			body: JSON.stringify({
+				userId,
 				pokemonId: pokemon.id,
 				pokemonName: pokemon.name,
+			}),
+		});
+		const data = await response.json();
+
+		if (!response.ok) {
+			return { data: null, error: data.error };
+		}
+
+		return { data, error: null };
+	} catch (error) {
+		return {
+			data: {},
+			error,
+		};
+	}
+};
+
+export const removeFavoritePokemon = async (
+	userId: string,
+	pokemon: PokemonObj,
+	token: string
+) => {
+	const endpoint = `${URL}${USERS_PATH}/favorites`;
+
+	try {
+		const response = await fetch(endpoint, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				authorization: token,
+			},
+			body: JSON.stringify({
+				userId,
+				pokemonId: pokemon.id,
 			}),
 		});
 		const data = await response.json();

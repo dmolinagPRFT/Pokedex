@@ -12,7 +12,7 @@ type CardContentProps = {
   openModal?: () => void;
   openPokemonTypeModal?: (type: string) => void;
   favPokemons?: number[];
-  onSetFavorites?: (id: number) => void;
+  onSetFavorites?: (id: PokemonObj) => void;
   onRemoveFavorites?: (id: number) => void;
 };
 
@@ -51,7 +51,7 @@ export const CardContent = ({
       return (
         <BiHeart
           size={"1.5rem"}
-          onClick={() => onSetFavorites && onSetFavorites(pokemon.id)}
+          onClick={() => onSetFavorites && onSetFavorites(pokemon)}
         />
       );
     }

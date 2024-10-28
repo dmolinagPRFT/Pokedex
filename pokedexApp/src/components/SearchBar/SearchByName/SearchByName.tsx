@@ -8,7 +8,7 @@ export const SearchByName = () => {
 
 	const handleSearch = useCallback(
 		(value: string) => {
-			queryByName(value);
+			queryByName(value, false);
 		},
 		[queryByName]
 	);

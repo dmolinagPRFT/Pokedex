@@ -4,6 +4,8 @@ import {
 	usePokemonsListContext,
 	getFavoritePokemons,
 	setFavoritePokemons,
+	useUserContext,
+	useToastContext,
 } from '../../../utils';
 import {
 	INITIAL_POKEMON,
@@ -15,6 +17,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Button, Card, CardContent, PokemonModal } from '../../../components';
 import _ from 'lodash';
 import { PokemonTypeModal } from '../../../components/pokemonTypeModal/PokemonTypeModal';
+import { favoritePokemon } from '../../../api/user';
 
 interface PokemonListProp {
 	page: number;
@@ -25,6 +28,8 @@ export const PokemonList = ({ page, setPage }: PokemonListProp) => {
 	const { pokemonList, filtered, pokemonType } = usePokemonsListContext();
 	const { queryPokemons } = useListPokemon();
 	const { queryPokemonsByType } = useListPokemonByType();
+	const { user } = useUserContext();
+	const { showToast } = useToastContext();
 
 	const [isPokemonDetailsModalOpen, setIsPokemonDetailsModalOpen] =
 		useState<boolean>(false);
@@ -36,7 +41,7 @@ export const PokemonList = ({ page, setPage }: PokemonListProp) => {
 	const [pokemonTypeAgainst, setPokemonTypeAgainst] = useState<string>('');
 
 	useEffect(() => {
-		queryPokemons(page);
+		queryPokemons(page, true);
 	}, []);
 
 	const handleLoadMore = async () => {
@@ -65,9 +70,24 @@ export const PokemonList = ({ page, setPage }: PokemonListProp) => {
 		[setIsPokemonTypeModalOpen, setPokemonTypeAgainst]
 	);
 
-	const handleSetFavorite = (pokemonId: number) => {
-		setFavPokemons((prevState) => prevState.concat(pokemonId));
-		setFavoritePokemons([...favPokemons, pokemonId]);
+	const handleSetFavorite = async (pokemon: PokemonObj) => {
+		const response = await favoritePokemon(user.id, pokemon, user.password);
+
+		if (!response.error) {
+			showToast({
+				isDisplay: true,
+				message: response.data.message,
+				type: 'success',
+			});
+			setFavPokemons((prevState) => prevState.concat(pokemon.id));
+			setFavoritePokemons([...favPokemons, pokemon.id]);
+		} else {
+      showToast({
+				isDisplay: true,
+				message: 'Error setting favorite pokemon',
+				type: 'error',
+			});
+		}
 	};
 
 	const handleRemoveFavorite = (pokemonId: number) => {

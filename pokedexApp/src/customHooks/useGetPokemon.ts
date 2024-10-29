@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { PokemonObj } from '../types/Pokemon';
 import { usePokemonsListContext, useToastContext } from '../utils';
-import { fetchPokemon } from '../api/pokemon';
+import { fetchPokemon } from '../api';
 
 export const INITIAL_POKEMON: PokemonObj = {
 	id: 0,

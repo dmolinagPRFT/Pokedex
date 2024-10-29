@@ -6,5 +6,6 @@ export * from './layout';
 export * from './loading/LoadingSpinner';
 export * from './pokemonBadgeType/PokemonBadgeType';
 export * from './pokemonDetailsModal/pokemonDetailsModal';
+export * from './pokemonTypeModal/PokemonTypeModal';
 export * from './searchBar/SearchBar';
 export * from './toast/Toast';

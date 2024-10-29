@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { PokemonListProvider, ToastProvider, UserProvider } from './utils';
+import { PokemonListProvider, SpinnerProvider, ToastProvider, UserProvider } from './utils';
 import { BrowserRouter } from 'react-router-dom';
-import { SpinnerProvider } from './utils/loadingContext';
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement

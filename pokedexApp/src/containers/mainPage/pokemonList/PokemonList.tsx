@@ -15,11 +15,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { Button, Card, CardContent, PokemonModal } from '../../../components';
 import _ from 'lodash';
 import { PokemonTypeModal } from '../../../components/pokemonTypeModal/PokemonTypeModal';
-import {
-	getFavoritePokemon,
-	removeFavoritePokemon,
-	setFavoritePokemon,
-} from '../../../api/favoritePokemons';
+import {  getFavoritePokemon, removeFavoritePokemon, setFavoritePokemon } from '../../../api';
+
 
 interface PokemonListProp {
 	page: number;
@@ -128,7 +125,7 @@ export const PokemonList = ({ page, setPage }: PokemonListProp) => {
 		} else {
 			showToast({
 				isDisplay: true,
-				message: 'Error setting favorite pokemon',
+				message: 'Error removing favorite pokemon',
 				type: 'error',
 			});
 		}

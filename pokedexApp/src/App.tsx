@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { CreateUser, LoginView, MainPage, UserPage,  } from './containers';
 import { Routes, Route } from 'react-router-dom';
 import 'react-tooltip/dist/react-tooltip.css';
-import { useSpinnerContext } from './utils/loadingContext';
+import { useSpinnerContext } from './utils';
 
 function App() {
 	const { isLoading } = useSpinnerContext();

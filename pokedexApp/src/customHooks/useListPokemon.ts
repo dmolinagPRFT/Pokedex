@@ -1,6 +1,9 @@
-import { fetchPokemonsList } from '../api/pokemon';
-import { usePokemonsListContext, useToastContext } from '../utils';
-import { useSpinnerContext } from '../utils/loadingContext';
+import { fetchPokemonsList } from '../api';
+import {
+	usePokemonsListContext,
+	useSpinnerContext,
+	useToastContext,
+} from '../utils';
 
 export function useListPokemon() {
 	const { pokemonList, definePokemonList } = usePokemonsListContext();

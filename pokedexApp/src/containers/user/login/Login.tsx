@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 import { getUserInfo, useUserContext } from '../../../utils';
 import { LoginForm } from './LoginForm/LoginForm';
 import { Button } from '../../../components';
-import { login } from '../../../api/user';
 import { useNavigate } from 'react-router-dom';
+import { login } from '../../../api';
 
 const INITIAL_FORM_VALUES: Login = {
 	username: '',

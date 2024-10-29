@@ -3,8 +3,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { Button } from '../../../components';
 import styles from '../User.module.scss';
 import { getUserInfo, setUserInfo } from '../../../utils';
-import { useCreateUser } from '../../../customHooks/useCreateUser';
 import { UserForm } from './createUserForm/UserForm';
+import { useCreateUser } from '../../../customHooks';
 
 export interface User {
 	id: string;

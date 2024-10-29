@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { useToastContext } from "../utils";
+import { useSpinnerContext, useToastContext } from "../utils";
 import { PokemonObj } from "../types/Pokemon";
-import { useSpinnerContext } from "../utils/loadingContext";
-import { fetchPokemonsById } from "../api/pokemon";
+import { fetchPokemonsById } from "../api";
 
 export function useGetPokemonById() {
   const { showToast } = useToastContext();

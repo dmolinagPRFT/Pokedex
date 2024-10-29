@@ -1,7 +1,7 @@
 import { useToastContext } from '../utils';
 import { User } from '../containers/user/createUser/CreateUser';
-import { signIn } from '../api/user';
 import { useNavigate } from 'react-router-dom';
+import { signIn } from '../api';
 
 export function useCreateUser() {
 	const { showToast } = useToastContext();
@@ -17,7 +17,6 @@ export function useCreateUser() {
 				type: 'success',
 			});
 			navigate('/user');
-
 		} else {
 			showToast({
 				isDisplay: true,

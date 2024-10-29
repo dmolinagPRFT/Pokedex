@@ -1,8 +1,6 @@
 import { ReactComponent as PokemonLogo } from '../../../assets/logo-pokemon.svg';
 import {
 	useToastContext,
-	clearLocalStorage,
-	getUserInfo,
 	useUserContext,
 } from '../../../utils';
 import { Button } from '../../button/Button';
@@ -48,11 +46,11 @@ export const Header = () => {
 					onClick={() => {
 						// clearLocalStorage();
 						navigate('/');
-						showToast({
-							isDisplay: true,
-							message: 'Log out successful',
-							type: 'success',
-						});
+						// showToast({
+						// 	isDisplay: true,
+						// 	message: 'Log out successful',
+						// 	type: 'success',
+						// });
 					}}
 				>
 					Log out

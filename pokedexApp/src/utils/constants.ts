@@ -5,8 +5,7 @@ export const MAX_POKEMON = 150;
 export const URL = 'http://localhost:3000/';
 export const POKEMONS_PATH = 'pokemons';
 export const USERS_PATH = 'users';
-
-
+export const FAVORITES_PATH = 'favorites';
 
 export const pokemonTypes: PokemonType[] = [
 	{ name: 'bug', color: '#7bcf00' },

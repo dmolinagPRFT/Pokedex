@@ -2,8 +2,6 @@ import { PokemonObj } from '../../../types/Pokemon';
 import { getPokemonColor } from '../../../utils/pokemonFunctions';
 import {
 	usePokemonsListContext,
-	getFavoritePokemons,
-	setFavoritePokemons,
 	useUserContext,
 	useToastContext,
 } from '../../../utils';
@@ -17,7 +15,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { Button, Card, CardContent, PokemonModal } from '../../../components';
 import _ from 'lodash';
 import { PokemonTypeModal } from '../../../components/pokemonTypeModal/PokemonTypeModal';
-import { favoritePokemon } from '../../../api/user';
+import {
+	getFavoritePokemon,
+	removeFavoritePokemon,
+	setFavoritePokemon,
+} from '../../../api/favoritePokemons';
 
 interface PokemonListProp {
 	page: number;
@@ -37,11 +39,22 @@ export const PokemonList = ({ page, setPage }: PokemonListProp) => {
 		useState<boolean>(false);
 	const [selectedPokemon, setSelectedPokemon] =
 		useState<PokemonObj>(INITIAL_POKEMON);
-	const [favPokemons, setFavPokemons] = useState<number[]>(getFavoritePokemons);
+	const [favPokemons, setFavPokemons] = useState<number[]>([]);
 	const [pokemonTypeAgainst, setPokemonTypeAgainst] = useState<string>('');
 
 	useEffect(() => {
 		queryPokemons(page, true);
+
+		const getFavPokemons = async () => {
+			const response = await getFavoritePokemon(user.id, user.password);
+			setFavPokemons(
+				response.data.map((item: { pokemonId: number }) => item.pokemonId)
+			);
+		};
+
+		if (user.id) {
+			getFavPokemons();
+		}
 	}, []);
 
 	const handleLoadMore = async () => {
@@ -71,7 +84,7 @@ export const PokemonList = ({ page, setPage }: PokemonListProp) => {
 	);
 
 	const handleSetFavorite = async (pokemon: PokemonObj) => {
-		const response = await favoritePokemon(user.id, pokemon, user.password);
+		const response = await setFavoritePokemon(user.id, pokemon, user.password);
 
 		if (!response.error) {
 			showToast({
@@ -80,9 +93,8 @@ export const PokemonList = ({ page, setPage }: PokemonListProp) => {
 				type: 'success',
 			});
 			setFavPokemons((prevState) => prevState.concat(pokemon.id));
-			setFavoritePokemons([...favPokemons, pokemon.id]);
 		} else {
-      showToast({
+			showToast({
 				isDisplay: true,
 				message: 'Error setting favorite pokemon',
 				type: 'error',
@@ -90,18 +102,35 @@ export const PokemonList = ({ page, setPage }: PokemonListProp) => {
 		}
 	};
 
-	const handleRemoveFavorite = (pokemonId: number) => {
-		const savedPokemon = favPokemons.filter(
-			(savedPokemon: number) => savedPokemon === pokemonId
+	const handleRemoveFavorite = async (pokemonId: number) => {
+		const response = await removeFavoritePokemon(
+			user.id,
+			pokemonId,
+			user.password
 		);
 
-		if (savedPokemon.length > 0) {
-			const newArray = [...favPokemons];
-			_.remove(newArray, (n) => {
-				return n === savedPokemon[0];
+		if (!response.error) {
+			showToast({
+				isDisplay: true,
+				message: response.data.message,
+				type: 'success',
 			});
-			setFavPokemons(newArray);
-			setFavoritePokemons(newArray);
+			const savedPokemon = favPokemons.filter(
+				(savedPokemon: number) => savedPokemon === pokemonId
+			);
+			if (savedPokemon.length > 0) {
+				const newArray = [...favPokemons];
+				_.remove(newArray, (n) => {
+					return n === savedPokemon[0];
+				});
+				setFavPokemons(newArray);
+			}
+		} else {
+			showToast({
+				isDisplay: true,
+				message: 'Error setting favorite pokemon',
+				type: 'error',
+			});
 		}
 	};
 

@@ -1,11 +1,7 @@
-import { User } from "../containers/user/createUser/CreateUser";
+import { User } from '../containers/user/createUser/CreateUser';
 
 const FAVORITE_POKEMONS = 'favorites';
 const USER_INFO = 'user';
-
-export const setFavoritePokemons = (pokemonIds: number[]): void => {
-	localStorage.setItem(FAVORITE_POKEMONS, JSON.stringify(pokemonIds));
-};
 
 export const getFavoritePokemons = (): number[] => {
 	const favorites = localStorage.getItem(FAVORITE_POKEMONS);

@@ -15,8 +15,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { Button, Card, CardContent, PokemonModal } from '../../../components';
 import _ from 'lodash';
 import { PokemonTypeModal } from '../../../components/pokemonTypeModal/PokemonTypeModal';
-import {  getFavoritePokemon, removeFavoritePokemon, setFavoritePokemon } from '../../../api';
-
+import {
+	getFavoritePokemon,
+	removeFavoritePokemon,
+	setFavoritePokemon,
+} from '../../../api';
 
 interface PokemonListProp {
 	page: number;

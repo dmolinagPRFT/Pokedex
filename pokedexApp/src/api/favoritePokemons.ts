@@ -11,17 +11,18 @@ export const getFavoritePokemon = async (userId: string, token: string) => {
 				'Content-Type': 'application/json',
 				authorization: token,
 			},
+			credentials: 'include',
 		});
 		const data = await response.json();
 
-		if (!response.ok) {
+		if (response.status !== 200) {
 			return { data: [], error: data.error };
 		}
 
 		return { data, error: null };
 	} catch (error) {
 		return {
-			data: {},
+			data: [],
 			error,
 		};
 	}
@@ -56,7 +57,7 @@ export const setFavoritePokemon = async (
 		return { data, error: null };
 	} catch (error) {
 		return {
-			data: {},
+			data: null,
 			error,
 		};
 	}
@@ -91,7 +92,7 @@ export const removeFavoritePokemon = async (
 		return { data, error: null };
 	} catch (error) {
 		return {
-			data: {},
+			data: null,
 			error,
 		};
 	}

@@ -2,10 +2,11 @@
 @import '../../../../css/variables/fontSizes.scss';
 
 .favoriteList {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+  padding: 0px;
+
 	&__pokemon {
 		display: flex;
 		flex-direction: row;
@@ -26,6 +27,7 @@
 
 		&__icon {
 			color: $red;
+			width: 15%;
 		}
 	}
 }

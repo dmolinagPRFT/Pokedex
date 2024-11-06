@@ -4,51 +4,53 @@ import { PokemonObj } from '../../../../types/Pokemon';
 import { BiSolidHeart } from 'react-icons/bi';
 import { User } from '../..';
 import { useGetFavoritePokemons } from '../../../../customHooks/useGetFavoritepokemons';
+import { removeFavoritePokemon } from '../../../../api';
+import { useToastContext } from '../../../../utils';
+import _ from 'lodash';
 
 interface FavoriteListProps {
 	user: User;
 }
 
 export const FavoriteList = ({ user }: FavoriteListProps) => {
-	const { queryFavoritePokemons, favoritePokemons } = useGetFavoritePokemons();
-	// const { showToast } = useToastContext();
+	const { favoritePokemons } = useGetFavoritePokemons(user.id, user.password);
+	const { showToast } = useToastContext();
 
 	const [favPokemons, setFavPokemons] = useState<PokemonObj[]>([]);
 
 	useEffect(() => {
-		queryFavoritePokemons(user.id, user.password);
 		setFavPokemons(favoritePokemons);
-	}, []);
+	}, [favoritePokemons]);
 
 	const handleRemoveFavorite = async (pokemonId: number) => {
-		// 	const response = await removeFavoritePokemon(
-		// 		user.id,
-		// 		pokemonId,
-		// 		user.password
-		// 	);
-		// 	if (!response.error) {
-		// 		showToast({
-		// 			isDisplay: true,
-		// 			message: response.data.message,
-		// 			type: 'success',
-		// 		});
-		// 		const savedPokemon = pokemonIds.filter(
-		// 			(savedPokemon: number) => savedPokemon === pokemonId
-		// 		);
-		// 		if (savedPokemon.length > 0) {
-		// 			const newArray = [...favPokemons];
-		// 			_.remove(newArray, (n) => {
-		// 				return n.id === savedPokemon[0];
-		// 			});
-		// 			setFavPokemons(newArray);
-		// 		}
-		// 	} else {
-		// 		showToast({
-		// 			isDisplay: true,
-		// 			message: 'Error removing favorite pokemon',
-		// 			type: 'error',
-		// 		});
-		// 	}
+		const response = await removeFavoritePokemon(
+			user.id,
+			pokemonId,
+			user.password
+		);
+		if (!response.error) {
+			showToast({
+				isDisplay: true,
+				message: response.data.message,
+				type: 'success',
+			});
+			const savedPokemon = favPokemons.filter(
+				(savedPokemon: PokemonObj) => savedPokemon.id === pokemonId
+			);
+			if (savedPokemon.length > 0) {
+				const newArray = [...favPokemons];
+				_.remove(newArray, (n) => {
+					return n.id === savedPokemon[0].id;
+				});
+				setFavPokemons(newArray);
+			}
+		} else {
+			showToast({
+				isDisplay: true,
+				message: 'Error removing favorite pokemon',
+				type: 'error',
+			});
+		}
 	};
 
 	return (

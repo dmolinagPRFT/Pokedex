@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PokemonObj } from '../types/Pokemon';
 import { useToastContext } from '../utils';
 import { fetchPokemonsById, getFavoritePokemon } from '../api';
 
-export function useGetFavoritePokemons() {
+export function useGetFavoritePokemons(userId: string, token: string) {
 	const { showToast } = useToastContext();
 	const [favoritePokemons, setFavoritePokemons] = useState<PokemonObj[]>([]);
 
-	const queryFavoritePokemons = async (userId: string, token: string) => {
+	useEffect(() => {
+		queryFavoritePokemons();
+	}, []);
+
+	const queryFavoritePokemons = async () => {
 		let favoritesResponse = await getFavoritePokemon(userId, token);
 
 		if (!favoritesResponse.error && favoritesResponse.data.length > 0) {
@@ -28,6 +32,5 @@ export function useGetFavoritePokemons() {
 
 	return {
 		favoritePokemons,
-		queryFavoritePokemons,
 	};
 }

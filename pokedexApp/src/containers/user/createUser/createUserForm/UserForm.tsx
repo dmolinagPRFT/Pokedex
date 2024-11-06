@@ -1,6 +1,5 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import { InputComp } from '../../../../components';
-import styles from '../../User.module.scss';
 
 export const UserForm = () => {
 	const { control, setValue } = useFormContext();
@@ -37,6 +36,18 @@ export const UserForm = () => {
 						label={'Username'}
 						{...field}
 						onChangeValue={(e) => setValue('username', e)}
+					/>
+				)}
+			/>
+			<Controller
+				name='email'
+				control={control}
+				render={({ field }) => (
+					<InputComp
+						label={'Email'}
+						type='email'
+						{...field}
+						onChangeValue={(e) => setValue('email', e)}
 					/>
 				)}
 			/>

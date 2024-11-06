@@ -10,7 +10,7 @@ export const UserPage = () => {
 			<h2>User</h2>
 
 			{/* user preferences */}
-			<FavoriteList />
+			<FavoriteList user={user} />
 		</div>
 	);
 };

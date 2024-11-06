@@ -10,7 +10,7 @@ export function useDebounce() {
 		if (!firstLoad) {
 			setQueryLoading(true);
 
-			let delayDebounceFn: NodeJS.Timeout;
+			// let delayDebounceFn: NodeJS.Timeout;
 			if (searchTerm.length > 3) {
 				// delayDebounceFn = setTimeout(() => {
 				queryPokemon(searchTerm);

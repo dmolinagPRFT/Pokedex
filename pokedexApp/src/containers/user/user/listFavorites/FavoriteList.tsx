@@ -1,68 +1,54 @@
 import { useEffect, useState } from 'react';
 import styles from './favoriteList.module.scss';
-import { useToastContext, useUserContext } from '../../../../utils';
 import { PokemonObj } from '../../../../types/Pokemon';
 import { BiSolidHeart } from 'react-icons/bi';
-import _ from 'lodash';
-import { useGetPokemonById } from '../../../../customHooks';
-import { getFavoritePokemon, removeFavoritePokemon } from '../../../../api';
+import { User } from '../..';
+import { useGetFavoritePokemons } from '../../../../customHooks/useGetFavoritepokemons';
 
-export const FavoriteList = () => {
-	const { user } = useUserContext();
-	const { queryPokemonsById, pokemonsArray } = useGetPokemonById();
-	const { showToast } = useToastContext();
+interface FavoriteListProps {
+	user: User;
+}
 
-	const [pokemonIds, setPokemonIds] = useState<number[]>([]);
+export const FavoriteList = ({ user }: FavoriteListProps) => {
+	const { queryFavoritePokemons, favoritePokemons } = useGetFavoritePokemons();
+	// const { showToast } = useToastContext();
+
 	const [favPokemons, setFavPokemons] = useState<PokemonObj[]>([]);
-	const favPokemonsLength: number = pokemonsArray.length;
 
 	useEffect(() => {
-		const getFavPokemons = async () => {
-			const response = await getFavoritePokemon(user.id, user.password);
-			setPokemonIds(
-				response.data.map((item: { pokemonId: number }) => item.pokemonId)
-			);
-		};
-		getFavPokemons();
+		queryFavoritePokemons(user.id, user.password);
+		setFavPokemons(favoritePokemons);
 	}, []);
 
-	useEffect(() => {
-		queryPokemonsById(pokemonIds);
-		setFavPokemons(pokemonsArray);
-	}, [pokemonIds, favPokemonsLength]);
-
 	const handleRemoveFavorite = async (pokemonId: number) => {
-		const response = await removeFavoritePokemon(
-			user.id,
-			pokemonId,
-			user.password
-		);
-
-		if (!response.error) {
-			showToast({
-				isDisplay: true,
-				message: response.data.message,
-				type: 'success',
-			});
-			const savedPokemon = pokemonIds.filter(
-				(savedPokemon: number) => savedPokemon === pokemonId
-			);
-
-			if (savedPokemon.length > 0) {
-				const newArray = [...favPokemons];
-				_.remove(newArray, (n) => {
-					return n.id === savedPokemon[0];
-				});
-
-				setFavPokemons(newArray);
-			}
-		} else {
-			showToast({
-				isDisplay: true,
-				message: 'Error removing favorite pokemon',
-				type: 'error',
-			});
-		}
+		// 	const response = await removeFavoritePokemon(
+		// 		user.id,
+		// 		pokemonId,
+		// 		user.password
+		// 	);
+		// 	if (!response.error) {
+		// 		showToast({
+		// 			isDisplay: true,
+		// 			message: response.data.message,
+		// 			type: 'success',
+		// 		});
+		// 		const savedPokemon = pokemonIds.filter(
+		// 			(savedPokemon: number) => savedPokemon === pokemonId
+		// 		);
+		// 		if (savedPokemon.length > 0) {
+		// 			const newArray = [...favPokemons];
+		// 			_.remove(newArray, (n) => {
+		// 				return n.id === savedPokemon[0];
+		// 			});
+		// 			setFavPokemons(newArray);
+		// 		}
+		// 	} else {
+		// 		showToast({
+		// 			isDisplay: true,
+		// 			message: 'Error removing favorite pokemon',
+		// 			type: 'error',
+		// 		});
+		// 	}
 	};
 
 	return (

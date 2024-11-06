@@ -55,3 +55,17 @@ export const login = async (loginInfo: Login) => {
 		};
 	}
 };
+
+export const checkIsLoggedIn = async () => {
+	const endpoint = `${URL}${USERS_PATH}/validation`;
+	const response = await fetch(endpoint, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+
+	const data = await response.json();
+
+  return data
+};

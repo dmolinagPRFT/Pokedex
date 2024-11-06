@@ -13,6 +13,7 @@ const userContext = React.createContext<UserContext>({
 		name: '',
 		lastname: '',
 		username: '',
+    email: '',
 		imageUrl: '',
 		password: '',
 	},
@@ -26,13 +27,14 @@ export const UserProvider = ({ children }: any) => {
 		name: '',
 		lastname: '',
 		username: '',
+    email: '',
 		imageUrl: '',
 		password: '',
 	});
 	const [token, setToken] = React.useState<string>('');
 
 	const setUserInfo = (
-		{ id, name, lastname, username, imageUrl }: User,
+		{ id, name, lastname, username, imageUrl, email }: User,
 		token: string
 	) => {
 		setUser(() => {
@@ -41,6 +43,7 @@ export const UserProvider = ({ children }: any) => {
 				name,
 				lastname,
 				username,
+        email, 
 				imageUrl,
 				password: token,
 			};

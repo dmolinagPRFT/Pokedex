@@ -1,17 +1,12 @@
 import { ReactComponent as PokemonLogo } from '../../../assets/logo-pokemon.svg';
-import {
-	useToastContext,
-	useUserContext,
-} from '../../../utils';
+import { useUserContext } from '../../../utils';
 import { Button } from '../../button/Button';
 import styles from './header.module.scss';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export const Header = () => {
-	// const user = getUserInfo();
 	let location = useLocation();
 	const navigate = useNavigate();
-	const { showToast } = useToastContext();
 	const { user } = useUserContext();
 
 	const renderButton = (path: string, label: string) => {

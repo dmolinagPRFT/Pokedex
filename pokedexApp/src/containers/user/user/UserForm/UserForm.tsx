@@ -5,6 +5,7 @@ import { User } from '../..';
 import styles from './UserForm.module.scss';
 import { Input } from 'react-aria-components';
 import { GeneralInput } from './GeneralInput';
+import { useEditUser } from '../../../../customHooks/useEditUser';
 
 interface UserFormProps {
 	user: User;
@@ -23,12 +24,24 @@ const defaultEditingUserValue: editingUserInfo = {
 };
 
 export const UserForm = ({ user }: UserFormProps) => {
+	const { editUser } = useEditUser();
+
 	const [editingInfo, setEditingInfo] = useState<editingUserInfo>(
 		defaultEditingUserValue
 	);
+	const [userInfo, setUserInfo] = useState<User>(user);
 
-	const handleEditFields = (field: string, value: boolean) => {
-		setEditingInfo({ ...editingInfo, [field]: value });
+	const handleEnablingEditFields = (field: string) => {
+		setEditingInfo({ ...editingInfo, [field]: true });
+	};
+
+	const handleSetFields = (field: string, value: string) => {
+		setUserInfo({ ...userInfo, [field]: value });
+	};
+
+	const handleSaveChange = (field: string) => {
+		editUser(userInfo);
+		setEditingInfo({ ...editingInfo, [field]: false });
 	};
 
 	return (
@@ -36,20 +49,24 @@ export const UserForm = ({ user }: UserFormProps) => {
 			<GeneralInput
 				isEditing={editingInfo.name}
 				label='Name'
-				value={user.name}
-				onEditField={handleEditFields}
+				value={userInfo.name}
+				onEnablingEditField={handleEnablingEditFields}
+				onEditField={handleSetFields}
+				onSaveChange={handleSaveChange}
 			/>
 
 			<GeneralInput
 				isEditing={editingInfo.lastname}
 				label='Lastname'
-				value={user.lastname}
-				onEditField={handleEditFields}
+				value={userInfo.lastname}
+				onEnablingEditField={handleEnablingEditFields}
+				onEditField={handleSetFields}
+				onSaveChange={handleSaveChange}
 			/>
 
 			{editingInfo.password ? (
 				<div className={styles.field}>
-					<label>Password:</label>
+					<label className={styles.label}>Password:</label>
 					<Input
 						className={styles.value}
 						onChange={(e) => console.log(e.target.value)}
@@ -60,8 +77,8 @@ export const UserForm = ({ user }: UserFormProps) => {
 				</div>
 			) : (
 				<div className={styles.field}>
-					<div className={styles.field__container}>
-						<label>Password:</label>
+					<div className={styles.container}>
+						<label className={styles.label}>Password:</label>
 					</div>
 					<MdEdit />
 				</div>

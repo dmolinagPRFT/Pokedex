@@ -29,6 +29,33 @@ export const signIn = async (user: User) => {
 	}
 };
 
+export const putUser = async (user: User) => {
+	const endpoint = `${URL}${USERS_PATH}/edituser`;
+
+	try {
+		const response = await fetch(endpoint, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(user),
+		});
+
+		const data = await response.json();
+
+		if (!response.ok) {
+			return { data: null, error: data.error };
+		}
+
+		return { data, error: null };
+	} catch (err) {
+		return {
+			data: {},
+			error: err,
+		};
+	}
+};
+
 export const login = async (loginInfo: Login) => {
 	const endpoint = `${URL}${USERS_PATH}/login`;
 

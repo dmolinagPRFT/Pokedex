@@ -1,33 +1,26 @@
 @import '../../../../css/variables/fontSizes.scss';
 @import '../../../../css/variables/colors.scss';
 
-.container {
-	display: flex;
-	flex-direction: column;
-	gap: 5px;
-	width: 30%;
+.field {
+	display: grid;
+	grid-template-columns: 3fr 0.1fr;
+	align-items: center;
+	width: 100%;
+	gap: 10px;
+	justify-content: space-between;
 
-	.field {
+	&__container {
 		display: grid;
-		grid-template-columns: 3fr 0.1fr;
+		grid-template-columns: 1fr 3fr;
 		align-items: center;
-		width: 100%;
 		gap: 5px;
-		justify-content: space-between;
 
-		.label {
+		&__label {
 			font-size: $size-sm;
 			font-weight: $text;
 		}
 
-		.container {
-			display: grid;
-			grid-template-columns: 1fr 3fr;
-			align-items: center;
-			gap: 5px;
-		}
-
-		.value {
+		&__value {
 			width: 100%;
 			height: 40px;
 			font-size: 1.7rem;

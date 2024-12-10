@@ -1,8 +1,6 @@
-import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Button } from '../../../components';
 import styles from '../User.module.scss';
-import { getUserInfo } from '../../../utils';
 import { UserForm } from './createUserForm/UserForm';
 import { useCreateUser } from '../../../customHooks';
 
@@ -33,22 +31,7 @@ export const CreateUser = () => {
 		defaultValues: INITIAL_FORM_VALUES,
 		mode: 'onSubmit',
 	});
-	const { handleSubmit, reset } = methods;
-
-	useEffect(() => {
-		const user: User | null = getUserInfo();
-
-		if (user) {
-			reset({
-				name: user.name,
-				lastname: user.lastname,
-				username: user.username,
-				email: user.email,
-				imageUrl: user.imageUrl,
-				password: user.password,
-			});
-		}
-	}, []);
+	const { handleSubmit } = methods;
 
 	const onSubmit = (user: User) => {
 		createUser(user);

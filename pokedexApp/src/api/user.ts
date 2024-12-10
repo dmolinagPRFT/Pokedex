@@ -43,7 +43,7 @@ export const login = async (loginInfo: Login) => {
 
 		const data = await response.json();
 
-		if (!response.ok) {
+		if (response.status !== 200) {
 			return { data: null, error: data.error };
 		}
 
@@ -67,5 +67,5 @@ export const checkIsLoggedIn = async () => {
 
 	const data = await response.json();
 
-  return data
+	return data;
 };

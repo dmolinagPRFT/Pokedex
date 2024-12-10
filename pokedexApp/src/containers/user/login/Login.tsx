@@ -1,7 +1,7 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import styles from '../User.module.scss';
 import { useEffect } from 'react';
-import { getUserInfo, useUserContext } from '../../../utils';
+import { getUserInfo, useToastContext, useUserContext } from '../../../utils';
 import { LoginForm } from './LoginForm/LoginForm';
 import { Button } from '../../../components';
 import { useNavigate } from 'react-router-dom';
@@ -25,6 +25,7 @@ export const LoginView = () => {
 	const { handleSubmit, reset } = methods;
 	const navigate = useNavigate();
 	const { setUserInfo } = useUserContext();
+	const { showToast } = useToastContext();
 
 	useEffect(() => {
 		const user: Login | null = getUserInfo();
@@ -38,9 +39,14 @@ export const LoginView = () => {
 	}, []);
 
 	const onSubmit = async (loginInfo: Login) => {
-		const { data } = await login(loginInfo);
+		const { data, error } = await login(loginInfo);
 
 		if (!data) {
+			showToast({
+				isDisplay: true,
+				message: error,
+				type: 'error',
+			});
 			return;
 		}
 

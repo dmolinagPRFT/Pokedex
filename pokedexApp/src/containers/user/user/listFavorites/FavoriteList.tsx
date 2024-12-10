@@ -13,10 +13,14 @@ interface FavoriteListProps {
 }
 
 export const FavoriteList = ({ user }: FavoriteListProps) => {
-	const { favoritePokemons } = useGetFavoritePokemons(user.id, user.password);
+	const { queryFavoritePokemons, favoritePokemons } = useGetFavoritePokemons();
 	const { showToast } = useToastContext();
 
 	const [favPokemons, setFavPokemons] = useState<PokemonObj[]>([]);
+
+	useEffect(() => {
+		queryFavoritePokemons(user.id, user.password);
+	}, []);
 
 	useEffect(() => {
 		setFavPokemons(favoritePokemons);

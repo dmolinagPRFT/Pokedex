@@ -1,26 +1,25 @@
-import { useToastContext } from '../utils';
+import { useToastContext, useUserContext } from '../utils';
 import { User } from '../containers/user/createUser/CreateUser';
-import { useNavigate } from 'react-router-dom';
 import { putUser } from '../api';
 
 export function useEditUser() {
 	const { showToast } = useToastContext();
-	const navigate = useNavigate();
+	const { setUserInfo } = useUserContext();
 
 	const editUser = async (user: User) => {
-		let userResponse = await putUser(user);
+		let { data, error } = await putUser(user);
 
-		if (!userResponse.error) {
+		if (!error) {
+			setUserInfo(data, data.password);
 			showToast({
 				isDisplay: true,
 				message: 'User edited',
 				type: 'success',
 			});
-			navigate('/user');
 		} else {
 			showToast({
 				isDisplay: true,
-				message: userResponse.error,
+				message: error,
 				type: 'error',
 			});
 		}

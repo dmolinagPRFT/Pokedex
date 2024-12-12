@@ -1,11 +1,10 @@
-import { useState } from 'react';
-import { MdEdit } from 'react-icons/md';
+import { useCallback, useEffect, useState } from 'react';
 
 import { User } from '../..';
 import styles from './UserForm.module.scss';
-import { Input } from 'react-aria-components';
 import { GeneralInput } from './GeneralInput';
 import { useEditUser } from '../../../../customHooks/useEditUser';
+import { PasswordInput } from './PasswordInput';
 
 interface UserFormProps {
 	user: User;
@@ -23,25 +22,80 @@ const defaultEditingUserValue: editingUserInfo = {
 	password: false,
 };
 
+interface passwordVerification {
+	oldPassword: string;
+	newPassword: string;
+	confirmPassword: string;
+}
+
+const defaultPasswordValue: passwordVerification = {
+	oldPassword: '',
+	newPassword: '',
+	confirmPassword: '',
+};
+
 export const UserForm = ({ user }: UserFormProps) => {
 	const { editUser } = useEditUser();
 
 	const [editingInfo, setEditingInfo] = useState<editingUserInfo>(
 		defaultEditingUserValue
 	);
-	const [userInfo, setUserInfo] = useState<User>(user);
+	const [userInfo, setUserInfo] = useState<User>({ ...user, password: '' });
+	const [passwordVerification, setPasswordVerification] =
+		useState<passwordVerification>(defaultPasswordValue);
+	const [enableSavePass, setEnableSavePass] = useState<boolean>(false);
 
 	const handleEnablingEditFields = (field: string) => {
 		setEditingInfo({ ...editingInfo, [field]: true });
 	};
 
-	const handleSetFields = (field: string, value: string) => {
-		setUserInfo({ ...userInfo, [field]: value });
+	const handleSetFields = useCallback(
+		(field: string, value: string) => {
+			setUserInfo((prevState) => ({ ...prevState, [field]: value }));
+		},
+		[userInfo]
+	);
+
+	const handleSetPassword = (field: string, value: string) => {
+		setPasswordVerification((prevState) => ({ ...prevState, [field]: value }));
 	};
 
-	const handleSaveChange = (field: string) => {
-		editUser(userInfo);
-		setEditingInfo({ ...editingInfo, [field]: false });
+	const validatePassword = useCallback(() => {
+		const { oldPassword, newPassword, confirmPassword } = passwordVerification;
+		if (
+			oldPassword.trim().length > 0 &&
+			newPassword.trim().length > 0 &&
+			confirmPassword.trim().length > 0 &&
+			newPassword === confirmPassword
+		) {
+			setEnableSavePass(true);
+		} else {
+			setEnableSavePass(false);
+		}
+	}, [passwordVerification]);
+
+	useEffect(() => {
+		validatePassword();
+	}, [passwordVerification, validatePassword]);
+
+	const handleSaveChange = useCallback(
+		(field: string) => {
+			if (userInfo[field as keyof User] === user[field as keyof User]) {
+				setEditingInfo((prevState) => ({ ...prevState, [field]: false }));
+				return;
+			}
+
+			editUser(userInfo);
+			setEditingInfo({ ...editingInfo, [field]: false });
+		},
+		[userInfo, user, editUser, editingInfo]
+	);
+
+	const handleCancel = () => {
+		setEditingInfo((prevState) => ({
+			...prevState,
+			password: false,
+		}));
 	};
 
 	return (
@@ -64,25 +118,18 @@ export const UserForm = ({ user }: UserFormProps) => {
 				onSaveChange={handleSaveChange}
 			/>
 
-			{editingInfo.password ? (
-				<div className={styles.field}>
-					<label className={styles.label}>Password:</label>
-					<Input
-						className={styles.value}
-						onChange={(e) => console.log(e.target.value)}
-						placeholder={'Last Name'}
-						value={''}
-						type={'text'}
-					/>
-				</div>
-			) : (
-				<div className={styles.field}>
-					<div className={styles.container}>
-						<label className={styles.label}>Password:</label>
-					</div>
-					<MdEdit />
-				</div>
-			)}
+			<PasswordInput
+				isEditing={editingInfo.password}
+				label='Password'
+				confirmPassword={passwordVerification.confirmPassword}
+				newPassword={passwordVerification.newPassword}
+				oldPassword={passwordVerification.oldPassword}
+				onEnablingEditField={handleEnablingEditFields}
+				onEditField={handleSetPassword}
+				onSaveChange={handleSaveChange}
+				enableSavePass={enableSavePass}
+				onCancel={handleCancel}
+			/>
 		</div>
 	);
 };

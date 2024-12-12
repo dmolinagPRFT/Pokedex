@@ -2,7 +2,7 @@ import { MdEdit } from 'react-icons/md';
 import { RiSave2Fill } from 'react-icons/ri';
 
 import { InputComp } from '../../../../components';
-import styles from './GeneralInput.module.scss';
+import styles from './UserForm.module.scss';
 
 interface GeneralInputProps {
 	isEditing: boolean;
@@ -30,7 +30,10 @@ export const GeneralInput = ({
 						onChangeValue={(e) => onEditField(label.toLowerCase(), e)}
 						value={value}
 					/>
-					<RiSave2Fill onClick={() => onSaveChange(label.toLowerCase())} />
+					<RiSave2Fill
+						className={styles.icon}
+						onClick={() => onSaveChange(label.toLowerCase())}
+					/>
 				</div>
 			) : (
 				<div className={styles.field}>
@@ -39,7 +42,10 @@ export const GeneralInput = ({
 						<label className={styles.field__container__value}>{value}</label>
 					</div>
 
-					<MdEdit onClick={() => onEnablingEditField(label.toLowerCase())} />
+					<MdEdit
+						className={styles.icon}
+						onClick={() => onEnablingEditField(label.toLowerCase())}
+					/>
 				</div>
 			)}
 		</>
